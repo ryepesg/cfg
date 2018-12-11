@@ -1,0 +1,27 @@
+[user]
+	email = ricardo.yepes@anz.com
+	name = Ricardo Yepes
+[diff]
+	tool = vimdiff
+[color]
+	ui = true
+[alias]
+    st = status
+    ci = commit
+    cm = commit -am
+    br = branch
+    co = checkout
+    unstage = reset HEAD 
+    last = log -1 HEAD
+    df = diff
+    dc = diff --cached
+    lo = log --oneline --graph --decorate
+    loa = log --oneline --graph --decorate --all
+    ls = ls-files
+    ign = ls-files -o -i --exclude-standard
+[credential]
+	helper = cache --timeout=7200
+[credential "https://github.com"]
+	username = ryepesg
+[credential "https://gitlab.com"]
+	username = ryepesg
