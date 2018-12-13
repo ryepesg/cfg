@@ -1,4 +1,5 @@
 {
+    "scrolloff.alwaysCenter": true,
     "window.zoomLevel": 3,
     "telemetry.enableTelemetry": false,
     "vim.leader": "<space>",
@@ -1109,5 +1110,6 @@
         }
     ],
     "vim.easymotion": true,
-    "editor.minimap.enabled": false
+    "editor.minimap.enabled": false,
+    "extensions.ignoreRecommendations": false
 }
