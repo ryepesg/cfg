@@ -35,6 +35,20 @@
         {
             "before": [
                 "<leader>",
+                "*"
+            ],
+            "after": [],
+            "commands": [
+                {
+                    "command": "workbench.view.search",
+                    "args": []
+                }
+            ],
+            "when": "!searchViewletVisible"
+        },
+        {
+            "before": [
+                "<leader>",
                 "<space>"
             ],
             "after": [],
