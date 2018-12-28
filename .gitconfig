@@ -1,12 +1,12 @@
 [user]
-	email = ricardo.yepes@anz.com
+	email = ricardo.yepes@servian.com
 	name = Ricardo Yepes
 [diff]
 	tool = vimdiff
 [color]
 	ui = true
 [alias]
-    st = status
+    st = status -s
     ci = commit
     cm = commit -am
     br = branch
