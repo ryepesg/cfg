@@ -1,8 +1,6 @@
 [user]
 	email = ricardo.yepes@servian.com
 	name = Ricardo Yepes
-[diff]
-	tool = vimdiff
 [color]
 	ui = true
 [alias]
@@ -25,3 +23,12 @@
 	username = ryepesg
 [credential "https://gitlab.com"]
 	username = ryepesg
+[diff]
+	tool = vimdiff
+[difftool]
+    prompt = false
+[merge]
+    tool = vimdiff
+[mergetool]
+    prompt = false
+	keepBackup = false
