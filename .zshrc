@@ -3771,4 +3771,31 @@ zrclocal
 # mode: sh
 # End:
 
+# Portable config files in Github
 alias cfg='/usr/bin/git --git-dir=/Users/ricardoyepes/.cfg/ --work-tree=/Users/ricardoyepes'
+
+# Gitless custom alias
+gl() {
+  case "$1" in
+    st|lo|loa|ls|last|ign)
+        command git "$@";;
+    tr)
+        command gl track "${@:2}";;
+    utr)
+        command gl untrack "${@:2}";;
+    df)
+        command gl diff "${@:2}";;
+    sw)
+        command gl switch "${@:2}";;
+    co)
+        command gl checkout "${@:2}";;
+    cm)
+        command gl commit -m "${@:2}";;
+    br)
+        command gl branch "${@:2}";;
+    pu)
+        command gl publish "${@:2}";;
+    *)
+        command /usr/local/bin/gl "$@";;
+  esac
+}
