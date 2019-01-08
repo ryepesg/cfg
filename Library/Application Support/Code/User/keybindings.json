@@ -63,5 +63,9 @@
         "args": {
             "snippet": "(${TM_SELECTED_TEXT})"
         }
+    },
+    {
+        "key": "space f f",
+        "command": "workbench.action.files.openFileFolder",
     }
 ]
