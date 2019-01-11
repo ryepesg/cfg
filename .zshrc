@@ -3799,3 +3799,9 @@ gl() {
         command /usr/local/bin/gl "$@";;
   esac
 }
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/ricardoyepes/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ricardoyepes/tools/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/ricardoyepes/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ricardoyepes/tools/google-cloud-sdk/completion.zsh.inc'; fi
