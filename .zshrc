@@ -3805,3 +3805,24 @@ if [ -f '/Users/ricardoyepes/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Us
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/ricardoyepes/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ricardoyepes/tools/google-cloud-sdk/completion.zsh.inc'; fi
+
+# gcloud
+REG=australia-southeast1
+REGR="--region=$REG"
+REGZ="--region=$REG --zone=$REG"
+PROJ=anz-insto-data-analytics
+DEV=$PROJ-dev
+STAGE=$PROJ-stage
+PROD=$PROJ-prod
+DEVOPS=anz-insto-dataanalytics-devops
+PDEV="--project=$DEV"
+PSTAGE="--project=$DEV"
+PDEVOPS="--project=$DEVOPS"
+FZA="--filter \"zone:($REG-a)\""
+FZB="--filter \"zone:($REG-b)\""
+
+# krew
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+# coreutils
+PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
