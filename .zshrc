@@ -3800,11 +3800,16 @@ gl() {
   esac
 }
 
+# The next line enables shell command completion for minikube.
+if [ -f '/Users/ricardoyepes/tools/minikube/completion.zsh.inc' ]; then . '/Users/ricardoyepes/tools/minikube/completion.zsh.inc'; fi
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/ricardoyepes/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ricardoyepes/tools/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/ricardoyepes/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ricardoyepes/tools/google-cloud-sdk/completion.zsh.inc'; fi
+
+alias k=kubectl
 
 # gcloud
 REG=australia-southeast1
