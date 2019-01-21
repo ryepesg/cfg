@@ -3816,7 +3816,7 @@ STAGE=$PROJ-stage
 PROD=$PROJ-prod
 DEVOPS=anz-insto-dataanalytics-devops
 PDEV="--project=$DEV"
-PSTAGE="--project=$DEV"
+PSTAGE="--project=$STAGE"
 PDEVOPS="--project=$DEVOPS"
 FZA="--filter \"zone:($REG-a)\""
 FZB="--filter \"zone:($REG-b)\""
