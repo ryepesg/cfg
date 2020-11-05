@@ -3772,7 +3772,7 @@ zrclocal
 # End:
 
 # Portable config files in Github
-alias cfg='/usr/bin/git --git-dir=/Users/ricardoyepes/.cfg/ --work-tree=/Users/ricardoyepes'
+alias cfg='/usr/bin/git --git-dir=/Users/yepesr/.cfg/ --work-tree=/Users/yepesr'
 
 # Gitless custom alias
 gl() {
@@ -3801,13 +3801,13 @@ gl() {
 }
 
 # The next line enables shell command completion for minikube.
-if [ -f '/Users/ricardoyepes/tools/minikube/completion.zsh.inc' ]; then . '/Users/ricardoyepes/tools/minikube/completion.zsh.inc'; fi
+if [ -f '/Users/yepesr/Documents/tools/minikube/completion.zsh.inc' ]; then . '/Users/yepesr/Documents/tools/minikube/completion.zsh.inc'; fi
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/ricardoyepes/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ricardoyepes/tools/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/yepesr/Documents/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yepesr/Documents/tools/gcloud/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/ricardoyepes/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ricardoyepes/tools/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/yepesr/Documents/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yepesr/Documents/tools/gcloud/completion.zsh.inc'; fi
 
 alias k=kubectl
 
@@ -3815,14 +3815,12 @@ alias k=kubectl
 REG=australia-southeast1
 REGR="--region=$REG"
 REGZ="--region=$REG --zone=$REG"
-PROJ=anz-insto-data-analytics
+PROJ=k8s
 DEV=$PROJ-dev
 STAGE=$PROJ-stage
 PROD=$PROJ-prod
-DEVOPS=anz-insto-dataanalytics-devops
 PDEV="--project=$DEV"
 PSTAGE="--project=$STAGE"
-PDEVOPS="--project=$DEVOPS"
 FZA="--filter \"zone:($REG-a)\""
 FZB="--filter \"zone:($REG-b)\""
 
@@ -3831,3 +3829,5 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # coreutils
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
