@@ -102,6 +102,7 @@
 #   exactly the same as @@INSERT-aliases-default@@. If you want a list of
 #   *all* aliases, for example, use @@INSERT-aliases-all@@.
 
+
 # zsh profiling
 # just execute 'ZSH_PROFILE_RC=1 zsh' and run 'zprof' to get the details
 if [[ $ZSH_PROFILE_RC -gt 0 ]] ; then
@@ -3809,7 +3810,6 @@ if [ -f '/Users/yepesr/Documents/tools/google-cloud-sdk/path.zsh.inc' ]; then . 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/yepesr/Documents/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yepesr/Documents/tools/gcloud/completion.zsh.inc'; fi
 
-alias k=kubectl
 
 # gcloud
 REG=australia-southeast1
@@ -3830,4 +3830,23 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 # coreutils
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+# Avoid complete:13: command not found: compdef erro
+autoload -Uz compinit
+compinit
+
+# Kubernetes autocompletion
+alias k=kubectl
+alias kb=kubie
+source <(kubectl completion zsh)
+complete -F __start_kubectl k
+complete -F __start_kubectl kb
+
+source ~/_istioctl
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
