@@ -49,7 +49,9 @@
     "cSpell.enabled": true,
     "gitlens.mode.active": "zen",
     "window.zoomLevel": 0,
-    "markdown-preview-enhanced.mermaidTheme": "dark",
-    "editor.tabSize": 2,
     "workbench.colorCustomizations": {}
+    "scrolloff.alwaysCenter": true,
+    "telemetry.enablTelemetry": false,
+    "editor.minimap.enabled": false,
+    "extensions.ignoreRecommendations": false,
 }
