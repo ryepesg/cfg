@@ -1,11 +1,11 @@
 [user]
-	email = ricardo.yepes@servian.com
+	email = ricardoyepex@gmail.com
 	name = Ricardo Yepes
 [color]
 	ui = true
 [alias]
     st = status -s
-    ci = commit
+    ci = commit -m
     cm = commit -am
     br = branch
     co = checkout
