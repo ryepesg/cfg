@@ -3827,6 +3827,9 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 # coreutils
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
+# grep
+PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+
 # python3
 export PATH=/usr/local/opt/python/libexec/bin:$PATH
 
