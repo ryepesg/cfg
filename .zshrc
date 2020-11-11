@@ -102,6 +102,7 @@
 #   exactly the same as @@INSERT-aliases-default@@. If you want a list of
 #   *all* aliases, for example, use @@INSERT-aliases-all@@.
 
+
 # zsh profiling
 # just execute 'ZSH_PROFILE_RC=1 zsh' and run 'zprof' to get the details
 if [[ $ZSH_PROFILE_RC -gt 0 ]] ; then
@@ -3772,7 +3773,7 @@ zrclocal
 # End:
 
 # Portable config files in Github
-alias cfg='/usr/bin/git --git-dir=/Users/ricardoyepes/.cfg/ --work-tree=/Users/ricardoyepes'
+alias cfg='/usr/bin/git --git-dir=/Users/yepesr/.cfg/ --work-tree=/Users/yepesr'
 
 # Gitless custom alias
 gl() {
@@ -3800,25 +3801,23 @@ gl() {
   esac
 }
 
-# The next line enables shell command completion for minikube.
-if [ -f '/Users/ricardoyepes/tools/minikube/completion.zsh.inc' ]; then . '/Users/ricardoyepes/tools/minikube/completion.zsh.inc'; fi
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/yepesr/Documents/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yepesr/Documents/tools/google-cloud-sdk/path.zsh.inc'; fi
 
-alias k=kubectl
-alias kctx=kubectx
-alias kns=kubens
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/yepesr/Documents/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yepesr/Documents/tools/google-cloud-sdk/completion.zsh.inc'; fi
+
 
 # gcloud
 REG=australia-southeast1
 REGR="--region=$REG"
 REGZ="--region=$REG --zone=$REG"
-PROJ=anz-insto-data-analytics
+PROJ=k8s
 DEV=$PROJ-dev
 STAGE=$PROJ-stage
 PROD=$PROJ-prod
-DEVOPS=anz-insto-dataanalytics-devops
 PDEV="--project=$DEV"
-PSTAGE="--project=$DEV"
-PDEVOPS="--project=$DEVOPS"
+PSTAGE="--project=$STAGE"
 FZA="--filter \"zone:($REG-a)\""
 FZB="--filter \"zone:($REG-b)\""
 
@@ -3840,4 +3839,25 @@ if [ -f '/Users/ricardoyepes/tools/google-cloud-sdk/completion.zsh.inc' ]; then 
 # anki
 export PATH="$PATH:/Applications/Anki.app/Contents/MacOS"
 
-alias kc='kubectl create -f' alias kr='kubectl run' alias kg='kubectl get' alias kd='kubectl describe' alias ke='kubectl explain'
+## I find history with fzf annoying
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Avoid complete:13: command not found: compdef erro
+autoload -Uz compinit
+compinit
+
+# Kubernetes autocompletion
+alias k=kubectl
+source <(kubectl completion zsh)
+complete -F __start_kubectl k
+alias kg='kubectl get'
+alias kd='kubectl describe'
+source ~/_istioctl
+
+# Kubie
+alias kb=kubie
+complete -F __start_kubectl kb
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
