@@ -3801,13 +3801,6 @@ gl() {
   esac
 }
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/yepesr/Documents/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yepesr/Documents/tools/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/yepesr/Documents/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yepesr/Documents/tools/google-cloud-sdk/completion.zsh.inc'; fi
-
-
 # gcloud
 REG=australia-southeast1
 REGR="--region=$REG"
@@ -3833,11 +3826,14 @@ PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 # python3
 export PATH=/usr/local/opt/python/libexec/bin:$PATH
 
+
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/ricardoyepes/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ricardoyepes/tools/google-cloud-sdk/path.zsh.inc'; fi
+#if [ -f '/Users/yepesr/Documents/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yepesr/Documents/tools/google-cloud-sdk/path.zsh.inc'; fi
+. /Users/yepesr/Documents/tools/google-cloud-sdk/path.zsh.inc
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/ricardoyepes/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ricardoyepes/tools/google-cloud-sdk/completion.zsh.inc'; fi
+#if [ -f '/Users/yepesr/Documents/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yepesr/Documents/tools/google-cloud-sdk/completion.zsh.inc'; fi
+. /Users/yepesr/Documents/tools/google-cloud-sdk/completion.zsh.inc
 
 # anki
 export PATH="$PATH:/Applications/Anki.app/Contents/MacOS"
