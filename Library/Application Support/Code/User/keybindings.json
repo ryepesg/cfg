@@ -131,5 +131,13 @@
 	    "key": "cmd+k shift+cmd+right",
 	    "command": "-workbench.action.moveEditorRightInGroup"
 	},
+	{
+	    "key": "ctrl+pageup",
+	    "command": "workbench.action.previousEditorInGroup"
+	},
+	{
+	    "key": "ctrl+pagedown",
+	    "command": "workbench.action.nextEditorInGroup"
+	},
 
 ]
