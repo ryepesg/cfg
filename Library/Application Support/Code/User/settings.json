@@ -49,9 +49,10 @@
     "cSpell.enabled": true,
     "gitlens.mode.active": "zen",
     "window.zoomLevel": 0,
-    "workbench.colorCustomizations": {}
+    "workbench.colorCustomizations": {},
     "scrolloff.alwaysCenter": true,
     "telemetry.enablTelemetry": false,
     "editor.minimap.enabled": false,
     "extensions.ignoreRecommendations": false,
+    "vim.vimrc.enable": true,
 }
