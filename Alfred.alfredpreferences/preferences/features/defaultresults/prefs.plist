@@ -4,5 +4,7 @@
 <dict>
 	<key>fallbacks</key>
 	<array/>
+	<key>showContacts</key>
+	<false/>
 </dict>
 </plist>

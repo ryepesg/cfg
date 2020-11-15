@@ -47,7 +47,6 @@
     ],
     "vim.foldfix": true,
     "cSpell.enabled": true,
-    "gitlens.mode.active": "zen",
     "window.zoomLevel": 0,
     "workbench.colorCustomizations": {},
     "scrolloff.alwaysCenter": true,
