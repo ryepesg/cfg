@@ -1,5 +1,5 @@
 [user]
-	email = ricardoyepex@gmail.com
+	email = ricardo.yepes@anz.com
 	name = Ricardo Yepes
 [color]
 	ui = true
@@ -32,3 +32,5 @@
 [mergetool]
     prompt = false
 	keepBackup = false
+[http]
+	postBuffer = 524288000
