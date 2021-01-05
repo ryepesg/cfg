@@ -3861,3 +3861,6 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
 if [ -e /Users/ricardoyepes/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/ricardoyepes/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+# 3mux
+PATH="$PATH:/Users/ricardoyepes/go/bin"
