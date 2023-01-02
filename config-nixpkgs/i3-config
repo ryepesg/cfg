@@ -1,0 +1,203 @@
+# Alt / Option
+set $mod Mod1
+
+# Mod4 is the Windows key in PC, great to avoid conflicts in 
+# Mod4 is the Command key in Mac, problematic for conflicts like Command+v 
+#set $mod Mod4
+
+# By default without Mod in MacOS VMware I get option
+
+
+# class                 border  backgr. text    indicator
+client.focused          #ffffff #ffffff #000000 #2e9ef4
+
+#font pango:DejaVu Sans Mono 8
+#font pango:Monaco 9
+font pango:Source Code Pro 10
+
+floating_modifier $mod
+
+bindsym $mod+h focus tiling; focus left
+bindsym $mod+j focus tiling; focus down
+bindsym $mod+k focus tiling; focus up
+bindsym $mod+l focus tiling; focus right
+
+# Casi no me muevo con flechas, sino con mouse o alt+hjkl
+#bindsym $mod+Left focus left
+#bindsym $mod+Down focus down
+#bindsym $mod+Up focus up
+#bindsym $mod+Right focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Idem, casi no uso
+#bindsym $mod+Shift+Left move left
+#bindsym $mod+Shift+Down move down
+#bindsym $mod+Shift+Up move up
+#bindsym $mod+Shift+Right move right
+
+bindsym $mod+v split v
+
+#bindsym $mod+s layout stacking
+bindsym $mod+s layout stacking
+#bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Incompatible con intellij smart autocomplete
+bindsym $mod+Shift+space floating toggle
+
+# No la necesito porque precisamente ya deshabilite el toggle
+bindsym $mod+space focus mode_toggle
+
+bindsym $mod+a focus parent
+
+# switch to workspace
+bindsym $mod+1 workspace "1:Research"
+bindsym $mod+2 workspace "2:Working"
+bindsym $mod+3 workspace "3:Empiric"
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace "6:VM"
+bindsym $mod+7 workspace "7:Coding"
+bindsym $mod+8 workspace "8:Working"
+bindsym $mod+9 workspace "9:Queued"
+bindsym $mod+0 workspace "10:Static"
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace "1:Research"
+bindsym $mod+Shift+2 move container to workspace "2:Working"
+bindsym $mod+Shift+3 move container to workspace "3:Empiric"
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace "6:VM"
+bindsym $mod+Shift+7 move container to workspace "7:Coding"
+bindsym $mod+Shift+8 move container to workspace "8:Working"
+bindsym $mod+Shift+9 move container to workspace "9:Queued"
+bindsym $mod+Shift+0 move container to workspace "10:Static"
+
+#workspace "1:Research" output VGA1
+#workspace "2:Working" output VGA1
+#workspace "3:Empiric" output VGA1
+#workspace "6:VM" output LVDS1
+#workspace "7:Coding" output LVDS1
+#workspace "8:Working" output LVDS1
+#workspace "9:Queued" output LVDS1
+#workspace "10:Static" output LVDS1
+#workspace "" output LVDS1
+
+#Esto en verdad poco lo usaba y creo que hace conflicto con paredit el $mod+Shift+c
+#Ocasionalmente cuando lo necesite, mejor ejecutar en shell: i3-msg restart
+#bindsym $mod+Shift+c reload
+#bindsym $mod+Shift+r restart
+#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window's width.
+        # Pressing right will grow the window's width.
+        # Pressing up will shrink the window's height.
+        # Pressing down will grow the window's height.
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+bar {
+        status_command i3status
+}
+
+
+# AGREGADO NUEVO
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
+
+# start a terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec xfce4-terminal --hide-menubar --hide-toolbar #--hide-borders
+
+#Para liberarlo para temas de IDE
+#bindsym Control+$mod+l exec i3lock
+bindsym Control+$mod+Delete exec i3lock -c 000000
+
+# kill focused window
+#bindsym $mod+Shift+q kill
+#bindsym Mod1+F4 kill
+bindsym $mod+F4 kill
+#bindsym $mod+d kill
+
+# start dmenu (a program launcher)
+#bindsym $mod+d exec dmenu_run
+#bindsym Mod1+F2 exec dmenu_run
+bindsym $mod+F2 exec dmenu_run
+# Mejor autocompletado, pero más lento
+#bindsym Mod1+F2 exec --no-startup-id i3-dmenu-desktop
+#bindsym $mod+F2 exec --no-startup-id i3-dmenu-desktop
+
+# cambiar todo lo de jkl? por hjkl y para el conflicto:
+# split in horizontal orientation
+bindsym $mod+b split h
+
+# enter fullscreen mode for the focused container
+#bindsym $mod+f fullscreen
+bindsym F11 fullscreen
+
+#bindsym $mod+n workspace next
+#bindsym $mod+p workspace prev
+#bindsym $mod+Shift+n move container to workspace next
+#bindsym $mod+Shift+p move container to workspace prev
+#bindsym $mod+Tab workspace back_and_forth
+bindsym Mod1+Tab workspace back_and_forth
+
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ -q
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- -q
+bindsym XF86AudioMute exec amixer -q set Master toggle
+
+#assign [class="^Timedoctor.run$"] "3:Empiric"
+assign [class="^Firefox$"] "1:Research"
+assign [class="^Smplayer$"] "1:Research"
+assign [class="^Vmplayer$"] "6:VM"
+assign [class="^virtualbox$"] "6:VM"
+assign [class="^KeePass2$"] "10:Static"
+assign [class="^Emacs$"] "7:Coding"
+assign [class="^Pgadmin3$"] "3:Empiric"
+
+#for_window [class="guake"] floating enable
+for_window [class="Main.py"] floating enable
+#for_window [class="Tilda"] floating enable
+for_window [class="Shutter"] floating enable
+for_window [class="shutter"] floating enable
+
+#exec --no-startup-id "setxkbmap latam; setxkbmap -option caps:escape; xinput set-prop 12 'libinput Accel Speed' 1.0; xinput set-prop 13 'libinput Accel Speed' 1.0"
+#exec guake
+#exec clipit
+#exec keepass
+#exec shutter --min_at_startup
+#exec firefox
+#exec emacs
+#exec --no-startup-id wicd-client -t
+#exec --no-startup-id timedoctor
+#exec --no-startup-id "setxkbmap latam; setxkbmap -option caps:escape; xinput set-prop 12 'libinput Accel Speed' 1.0; xinput set-prop 13 'libinput Accel Speed' 1.0"
+#exec --no-startup-id xrandr --output VGA1 --left-of LVDS1 --auto
+#exec --no-startup-id "setxkbmap latam; setxkbmap -option caps:escape; xinput set-prop 12 'libinput Accel Speed' 1.0; xinput set-prop 13 'libinput Accel Speed' 1.0"
+#exec --no-startup-id xrandr --output VGA1 --left-of LVDS1 --auto
