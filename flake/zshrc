@@ -3964,3 +3964,5 @@ setopt appendhistory
 
 alias pbcopy="xclip -selection c"
 alias pbpaste="xclip -selection clipboard -o"
+
+if [ -e /Users/ricardoyepes/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/ricardoyepes/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
