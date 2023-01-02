@@ -42,6 +42,7 @@ in
     git
     dotnet-sdk_7
     fsharp
+    xclip
     (let
       my-python-packages = python-packages: with python-packages; [
         toolz
