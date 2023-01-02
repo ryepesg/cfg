@@ -28,8 +28,29 @@
         ricardoyepes = lib.nixosSystem {
           inherit system;
           specialArgs = attrs;
-          modules = [ ./configuration.nix ];
+          modules = [ 
+            ./configuration.nix
+
+            home-manager.nixosModules.home-manager {              # Home-Manager module that is used.
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              #home-manager.extraSpecialArgs = {
+              #  inherit user;
+              #  host = {
+              #    hostName = "desktop";     #For Xorg iGPU  | Videocard 
+              #    mainMonitor = "HDMI-A-3"; #HDMIA3         | HDMI-A-1
+              #    secondMonitor = "DP-1";   #DP1            | DisplayPort-1
+              #  };
+              #};                                                  # Pass flake variable
+              home-manager.users.${user} = {
+                # imports = [(import ./home.nix)] ++ [(import ./desktop/home.nix)];
+                imports = [ ./home.nix ];
+              };
+            }
+
+          ];
         };
+
       };
 
 #      darwinConfigurations = (                                              # Darwin Configurations
@@ -39,19 +60,18 @@
 #        }
 #      );
 
-      homeConfigurations = {
-        ${user} = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          #username = "${user}";
-          #homeDirectory = "/home/${user}";
+    # Standalone Home manager
+     # homeConfigurations = {
+     #   ${user} = home-manager.lib.homeManagerConfiguration {
+     #     inherit pkgs;
 
-          # home configuration modules
-          modules = [
-            ./home.nix
-          ];
-          # extraSpecialArgs to pass through arguments to home.nix
-        };
-      };
+     #     # home configuration modules
+     #     modules = [
+     #       ./home.nix
+     #     ];
+     #     # extraSpecialArgs to pass through arguments to home.nix
+     #   };
+     # };
 
       #${user} = self.homeConfigurations.${user}.activationPackage;
       #defaultPackage.${system} = self.${user};
