@@ -22,6 +22,10 @@
 
 
   home.packages = with pkgs; [
+
+    iterm2
+    rectangle
+
     vim
     wget
     bat
@@ -35,14 +39,12 @@
     fzf
     coreutils
     htop
-    firefox
     tmux
     git
     dotnet-sdk_7
     fsharp
     xclip
     pfetch
-    iterm2
     nushell
     wezterm
     (let
