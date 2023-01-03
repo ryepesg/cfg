@@ -15,13 +15,17 @@
     source = ./os.sh;
   };
 
+  # https://github.com/rxhanson/Rectangle#import--export-json-config
   # Rectangle is able to create the plist from "~/Library/Application Support/Rectangle/RectangleConfig.json"
-  # Using the JSON instead of the plist because it is easier to track the changes
+  # Using both JSON and plist to detect when a non intended change happens
   home.file."Library/Preferences/com.knollsoft.Rectangle.plist" = {
     source = ./preferences/com.knollsoft.Rectangle.plist;
   };
 
-  home.file."Library/Application Support/Rectangle/RectangleConfig.json" = {
+  # Using the JSON instead of the plist because it is easier to track the changes
+  # Upon launch, Rectangle will load a config file at ~/Library/Application Support/Rectangle/RectangleConfig.json
+  # if it is present and will rename that file with a time/date stamp so that it isn't read on subsequent launches.
+  home.file."Library/Application Support/Rectangle/RectangleConfig2023-01-04_10-00-08-5070.json" = {
     source = ./preferences/RectangleConfig.json;
   };
 
