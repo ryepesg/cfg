@@ -58,6 +58,7 @@
               #    secondMonitor = "DP-1";   #DP1            | DisplayPort-1
               #  };
               #};                                                  # Pass flake variable
+              home-manager.extraSpecialArgs = { inherit user; homedir = "$HOME"; };
               home-manager.users.${user} = {
                 # imports = [(import ./home.nix)] ++ [(import ./desktop/home.nix)];
                 imports = [ ./home.nix ];
