@@ -1,33 +1,49 @@
+#  flake.nix *             
+#   ├─ ./darwin
+#   │   └─ default.nix
+
 {
-  description = "A very basic flake";
+  description = "Personal configuration for Linux and MacOS";
 
   inputs = {
+
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     darwin = {
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixgl = {                                                             # OpenGL
+      url = "github:guibou/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
+    #nur = {
+    #  url = "github:nix-community/NUR";                                   # NUR Packages
+    #};
+
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, ... }@attrs:
+  outputs = inputs @ { self, nixpkgs, home-manager, darwin, nur, nixgl, ... }:   # Function that tells my flake which to use and what do what to do with the dependencies.
     let
-      system = "x86_64-linux";
       pkgs = import nixpkgs {
-        inherit system;
+        system = "x86_64-linux";
         config.allowUnfree = true;
       };
       lib = nixpkgs.lib;
       user = "ricardoyepes";
+      location = "$HOME/code/cfg";
     in {
 
       nixosConfigurations = {
         ricardoyepes = lib.nixosSystem {
-          inherit system;
-          specialArgs = attrs;
+          specialArgs = inputs;
           modules = [ 
             ./configuration.nix
 
@@ -53,12 +69,12 @@
 
       };
 
-#      darwinConfigurations = (                                              # Darwin Configurations
-#        import ./darwin {
-#          inherit (nixpkgs) lib;
-#          inherit inputs nixpkgs home-manager darwin user;
-#        }
-#      );
+      darwinConfigurations = (                                              # Darwin Configurations
+        import ../darwin {
+          inherit (nixpkgs) lib;
+          inherit inputs nixpkgs home-manager darwin user;
+        }
+      );
 
     # Standalone Home manager
      # homeConfigurations = {
