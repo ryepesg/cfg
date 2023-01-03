@@ -69,10 +69,12 @@
       "wireguard-tools"
     ];
     casks = [
-      #"plex-media-player"
       "google-chrome"
       "firefox"
       "logseq"
+      "iterm2"
+      "rectangle"
+      #"plex-media-player"
       #"burp-suite-professional"
       #"anki"
       #"powershell"
