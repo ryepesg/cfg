@@ -67,6 +67,7 @@
     };
     brews = [
       #"wireguard-tools"
+      "iproute2mac"                       # ip addr, ip link...
     ];
     casks = [
       "google-chrome"
