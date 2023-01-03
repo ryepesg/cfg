@@ -28,8 +28,11 @@ in
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = { inherit user; };  # Pass flake variable
-        home-manager.users.${user} = import ../flake/home.nix;
+        home-manager.users.${user} = {
+          imports = [ ../flake/home.nix ./files.nix ];
+        };
       }
+
     ];
   };
 }

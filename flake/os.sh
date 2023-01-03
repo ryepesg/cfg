@@ -1,0 +1,1 @@
+echo NixOS setup completed!

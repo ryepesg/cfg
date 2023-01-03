@@ -64,7 +64,7 @@
       thenuprojectcontributors.vscode-nushell-lang
       streetsidesoftware.code-spell-checker
       ms-vscode.hexeditor
-      ms-vscode.PowerShell
+      #ms-vscode.PowerShell
       ms-python.vscode-pylance
       kahole.magit
       jnoortheen.nix-ide
@@ -160,5 +160,15 @@
   home.file.".tmux.conf" = {
     source = ./tmux.conf;
   };
+
+  home.file.".logseq/" = {
+    source = ./logseq;
+    recursive = true;
+  };
+
+  home.file."./.init.sh" = {
+    source = ./init.sh;
+  };
+
 
 }
