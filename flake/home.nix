@@ -22,10 +22,6 @@
 
 
   home.packages = with pkgs; [
-
-    iterm2
-    rectangle
-
     vim
     wget
     bat
