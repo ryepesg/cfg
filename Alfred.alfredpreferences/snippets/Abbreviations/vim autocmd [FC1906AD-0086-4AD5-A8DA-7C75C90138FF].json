@@ -1,8 +1,0 @@
-{
-  "alfredsnippet" : {
-    "snippet" : "autocmd FileType yaml setlocal ai et ts=2 sw=2 sts=0",
-    "uid" : "FC1906AD-0086-4AD5-A8DA-7C75C90138FF",
-    "name" : "vim autocmd",
-    "keyword" : "autocmd"
-  }
-}

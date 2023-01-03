@@ -1,8 +1,0 @@
-{
-  "alfredsnippet" : {
-    "snippet" : "set nocp\nfiletype off\nfiletype plugin indent on\nnmap Y y$\nsyntax on\nset ic scs mouse=v bs=indent,eol,start",
-    "uid" : "CD6A5592-DC0D-4818-97C9-96D663F13F6B",
-    "name" : "vim additional configs",
-    "keyword" : "setnoc"
-  }
-}
