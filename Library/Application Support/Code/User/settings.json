@@ -47,11 +47,28 @@
     ],
     "vim.foldfix": true,
     "cSpell.enabled": true,
-    "window.zoomLevel": 0,
     "workbench.colorCustomizations": {},
     "scrolloff.alwaysCenter": true,
     "telemetry.enablTelemetry": false,
     "editor.minimap.enabled": false,
     "extensions.ignoreRecommendations": false,
     "vim.vimrc.enable": true,
+    "FSharp.fsiExtraParameters": [
+        "--langversion:preview"
+    ],
+    "FSharp.addFsiWatcher": true,
+    "FSharp.lineLens.enabled": "always",
+    "FSharp.smartIndent": true,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "window.zoomLevel": 1,
+    "cph.general.defaultLanguage": "python",
+    "cph.general.defaultLanguageTemplateFileLocation": "/Users/ricardoyepes/code/main.py",
+    "cph.general.menuChoices": "cpp python",
+    "python.languageServer": "Pylance",
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
 }

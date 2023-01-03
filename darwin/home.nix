@@ -25,25 +25,25 @@
   };
 
   programs = {
-    zsh = {                                       # Post installation script is run in configuration.nix to make it default shell
-      enable = true;
-      enableAutosuggestions = true;               # Auto suggest options and highlights syntax. It searches in history for options
-      enableSyntaxHighlighting = true;
-      history.size = 10000;
+   # zsh = {                                       # Post installation script is run in configuration.nix to make it default shell
+   #   enable = true;
+   #   enableAutosuggestions = true;               # Auto suggest options and highlights syntax. It searches in history for options
+   #   enableSyntaxHighlighting = true;
+   #   history.size = 10000;
 
-      oh-my-zsh = {                               # Extra plugins for zsh
-        enable = true;
-        plugins = [ "git" ];
-        custom = "$HOME/.config/zsh_nix/custom";
-      };
+   #   oh-my-zsh = {                               # Extra plugins for zsh
+   #     enable = true;
+   #     plugins = [ "git" ];
+   #     custom = "$HOME/.config/zsh_nix/custom";
+   #   };
 
-      initExtra = ''
-        # Spaceship
-        source ${pkgs.spaceship-prompt}/share/zsh/site-functions/prompt_spaceship_setup
-        autoload -U promptinit; promptinit
-        pfetch
-      '';                                         # Zsh theme
-    };
+   #   initExtra = ''
+   #     # Spaceship
+   #     source ${pkgs.spaceship-prompt}/share/zsh/site-functions/prompt_spaceship_setup
+   #     autoload -U promptinit; promptinit
+   #     pfetch
+   #   '';                                         # Zsh theme
+   # };
     neovim = {
       enable = true;
       viAlias = true;
@@ -81,7 +81,7 @@
 
         highlight Comment cterm=italic gui=italic " Comments become italic
         hi Normal guibg=NONE ctermbg=NONE         " Remove background, better for personal theme
-        
+
         set number                                " Set numbers
 
         nmap <F6> :NERDTreeToggle<CR>             " F6 opens NERDTree

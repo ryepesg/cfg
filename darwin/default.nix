@@ -12,6 +12,10 @@
 
 let
   system = "x86_64-darwin";                                 # System architecture
+  pkgs = import nixpkgs {
+    inherit system;
+    config.allowUnfree = true;
+  };
 in
 {
   macbook = darwin.lib.darwinSystem {                       # MacBook8,1 "Core M" 1.2 12" (2015) A1534 ECM2746 profile
@@ -24,7 +28,7 @@ in
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = { inherit user; };  # Pass flake variable
-        home-manager.users.${user} = import ./home.nix;
+        home-manager.users.${user} = import ../flake/home.nix;
       }
     ];
   };

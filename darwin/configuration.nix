@@ -110,4 +110,5 @@
     activationScripts.postActivation.text = ''sudo chsh -s ${pkgs.zsh}/bin/zsh''; # Since it's not possible to declare default shell, run this command after build
     stateVersion = 4;
   };
+
 }

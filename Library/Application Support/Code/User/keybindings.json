@@ -139,5 +139,10 @@
 	    "key": "ctrl+pagedown",
 	    "command": "workbench.action.nextEditorInGroup"
 	},
+	{
+		"key": "alt+enter",
+		"command": "clojureVSCode.evalAndShowResult",
+		"when": "editorFocus && !findWidgetVisible && editorLangId == 'clojure'"
+	},
 
 ]
