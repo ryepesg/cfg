@@ -72,6 +72,7 @@
       #"plex-media-player"
       "google-chrome"
       "firefox"
+      "logseq"
       #"burp-suite-professional"
       #"anki"
       #"powershell"
