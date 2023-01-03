@@ -91,8 +91,9 @@ in
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
 
-  # No support for firefox in darwin
+  # No support for darwin
   programs.firefox.enable = true;
+  programs.logseq.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
