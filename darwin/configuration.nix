@@ -69,7 +69,12 @@
       "wireguard-tools"
     ];
     casks = [
-      "plex-media-player"
+      #"plex-media-player"
+      "google-chrome"
+      "firefox"
+      #"burp-suite-professional"
+      #"anki"
+      #"powershell"
     ];
   };
 
@@ -111,4 +116,6 @@
     stateVersion = 4;
   };
 
+  nixpkgs.config.allowUnfree = true;
+  
 }
