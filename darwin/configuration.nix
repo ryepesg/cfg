@@ -74,11 +74,13 @@
       "logseq"
       "iterm2"
       "rectangle"
+      "alfred"
+      "keepassxc"
+      "anki"
       #"powershell"
       #"vmware-fusion" Requires Mac update
       #"plex-media-player"
       #"burp-suite-professional"
-      #"anki"
     ];
   };
 
