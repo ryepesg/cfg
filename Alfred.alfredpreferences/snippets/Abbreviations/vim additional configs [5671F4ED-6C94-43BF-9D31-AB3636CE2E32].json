@@ -1,8 +1,0 @@
-{
-  "alfredsnippet" : {
-    "snippet" : "set nocp\nfiletype plugin indent on\nnmap Y y$\nsyntax on\nset ic scs mouse=v bs=indent,eol,start",
-    "uid" : "5671F4ED-6C94-43BF-9D31-AB3636CE2E32",
-    "name" : "vim additional configs",
-    "keyword" : "filetypeplug"
-  }
-}
