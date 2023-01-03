@@ -66,7 +66,7 @@
       cleanup = "zap";                    # Uninstall not listed packages and casks
     };
     brews = [
-      "wireguard-tools"
+      #"wireguard-tools"
     ];
     casks = [
       "google-chrome"
@@ -74,10 +74,11 @@
       "logseq"
       "iterm2"
       "rectangle"
+      #"powershell"
+      #"vmware-fusion" Requires Mac update
       #"plex-media-player"
       #"burp-suite-professional"
       #"anki"
-      #"powershell"
     ];
   };
 
@@ -120,5 +121,5 @@
   };
 
   nixpkgs.config.allowUnfree = true;
-  
+
 }
