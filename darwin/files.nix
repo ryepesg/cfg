@@ -29,4 +29,11 @@
     source = ./preferences/RectangleConfig.json;
   };
 
+  # Indirect restoring as indicated in https://gitlab.com/gnachman/iterm2/-/issues/8029
+  # The benefit is I can track XML instead on binary
+  # ~/Library/Preferences/com.googlecode.iterm2.plist
+  home.file."preferences/com.googlecode.iterm2.plist" = {
+    source = ./preferences/com.googlecode.iterm2.plist;
+  };
+
 }
