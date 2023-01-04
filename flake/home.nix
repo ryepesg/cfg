@@ -22,6 +22,7 @@
 
 
   home.packages = with pkgs; [
+    cacert
     vim
     wget
     bat
@@ -35,7 +36,6 @@
     fzf
     coreutils
     htop
-    tmux
     git
     dotnet-sdk_7
     fsharp
@@ -139,6 +139,34 @@
         nmap <F6> :NERDTreeToggle<CR>             " F6 opens NERDTree
       '';
     };
+  };
+
+  programs.tmux = {
+    enable = true;
+    #clock24 = true;
+    plugins = with pkgs.tmuxPlugins; [
+      sensible
+      {
+        plugin = tilish;
+        extraConfig = ''
+          set -g @tilish-default 'main-vertical'
+        '';
+      }
+      #yank
+      #{
+      #  plugin = dracula;
+      #  extraConfig = ''
+      #    set -g @dracula-show-battery false
+      #    set -g @dracula-show-powerline true
+      #    set -g @dracula-refresh-rate 10
+      #  '';
+      #}
+    ];
+
+    #extraConfig = ''
+    #  set -g mouse on
+    #'';
+
   };
 
   home.file.".config/i3/config" = {
