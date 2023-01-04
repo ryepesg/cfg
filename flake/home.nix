@@ -41,7 +41,6 @@
     xclip
     pfetch
     nushell
-    wezterm
     (let
       my-python-packages = python-packages: with python-packages; [
         toolz
