@@ -77,7 +77,7 @@
       "rectangle"
       "alfred"
       "keepassxc"
-      "anki"
+      #"anki"
       #"powershell"
       #"vmware-fusion" Requires Mac update
       #"plex-media-player"
