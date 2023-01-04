@@ -1,8 +1,8 @@
 [user]
-	name = Ricardo Yepes
+  name = Ricardo Yepes
   email = richard@empiric.us
 [color]
-	ui = true
+  ui = true
 [alias]
   st = status -s
   ci = commit -m
@@ -18,9 +18,9 @@
   ls = ls-files
   ign = ls-files -o -i --exclude-standard
 [credential]
-	helper = cache --timeout=7200
+  helper = cache --timeout=7200
 [credential "https://github.com"]
-	username = ryepesg
+  username = ryepesg
 #[credential "https://gitlab.com"]
 #	username = ryepesg
 [diff]
@@ -33,6 +33,8 @@
   prompt = false
   keepBackup = false
 [http]
-	postBuffer = 524288000
+  postBuffer = 524288000
 [init]
-	defaultBranch = main
+  defaultBranch = main
+[pull]
+  ff = only
