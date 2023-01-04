@@ -152,7 +152,8 @@
           set -g @tilish-default 'main-vertical'
         '';
       }
-      #yank
+      # resurrect
+      # yank
       #{
       #  plugin = dracula;
       #  extraConfig = ''
