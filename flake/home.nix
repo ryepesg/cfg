@@ -22,7 +22,6 @@
 
 
   home.packages = with pkgs; [
-    cacert
     vim
     wget
     bat
