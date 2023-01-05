@@ -198,6 +198,10 @@
     source = ./init.sh;
   };
 
+  home.file."./.ssh/config" = {
+    source = ./ssh-config;
+  };
+
   # Setup tmux plugins
   # git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   home.file.".tmux/plugins/tpm" = {
