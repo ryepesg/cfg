@@ -29,7 +29,13 @@ in
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = { inherit user; };  # Pass flake variable
         home-manager.users.${user} = {
-          imports = [ ../flake/home.nix ./files.nix ];
+          imports = [
+                  ../flake/home.nix
+                  ../flake/programs/git
+                  ../flake/programs/i3
+                  ../flake/programs/zsh
+                  ./files.nix
+          ];
         };
       }
 
