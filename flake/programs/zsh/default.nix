@@ -2,7 +2,7 @@
 
 {
 
-  home.file.".config/zsh/.zshrc".source = ./zshrc;
+  home.file.".config/zsh/.zshrc-grml".source = ./zshrc;
 
  # zsh = {
  # Extra plugins for zsh
@@ -12,7 +12,6 @@
  #     plugins = [
  #      "git"
  #      "pip"
- #      "fasd"
  #     ];
  #     custom = "$HOME/.config/zsh_nix/custom";
  #   };
@@ -37,7 +36,8 @@
     };
 
     initExtra = ''
-      sops -d conf/users/ralvarez/muna.yml > /dev/null 2>&1
+      source .zshrc-grml
+      echo sops -d conf/sops.yml > /dev/null 2>&1
       bindkey '^R' history-incremental-search-backward
       source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
       eval "$(zoxide init zsh)"
@@ -71,8 +71,11 @@
                          --exclude=.cache \
                          --one-file-system \
                          --verbose'';
-      shutdown = "echo Use: systemctl poweroff";
-      reboot = "echo Use: systemctl reboot";
+
+      # shutdown and reboot are already alias to systemctl
+      # shutdown = "echo Use: systemctl poweroff";
+      # reboot = "echo Use: systemctl reboot";
+
     };
 
   };
