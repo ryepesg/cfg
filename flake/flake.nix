@@ -65,6 +65,7 @@
                 # imports = [ ./home.nix ];
                 imports = [
                   ./home.nix
+                  ./home-linux.nix
                   ./files.nix
                   ./programs/git
                   ./programs/i3
