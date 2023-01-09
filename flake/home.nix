@@ -42,6 +42,19 @@
     pfetch
     nushell
     google-cloud-sdk
+
+    # networking
+    nmap
+    httpie
+    netcat-gnu
+
+    # secret management
+    sops
+    age
+
+    # backup
+    restic-b2
+
     (let
       my-python-packages = python-packages: with python-packages; [
         toolz
