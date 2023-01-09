@@ -22,28 +22,41 @@
 
 
   home.packages = with pkgs; [
-    vim
-    wget
+
+    # system info
+    htop
+    pfetch
+
+    # development
+    git
+    google-cloud-sdk
+    dotnet-sdk_7
+    fsharp
+
+    # shell ergonomics
+    xclip
+    tree
+    pstree
+    coreutils
+    nushell
     bat
     fd
     ripgrep
     gnugrep
-    tree
-    pstree
+    fzf
+    zoxide
+
+    # editor
+    vim
+    helix
+
+    # formats
     jq
     yq
-    fzf
-    coreutils
-    htop
-    git
-    dotnet-sdk_7
-    fsharp
-    xclip
-    pfetch
-    nushell
-    google-cloud-sdk
+
 
     # networking
+    wget
     nmap
     httpie
     netcat-gnu
@@ -53,7 +66,7 @@
     age
 
     # backup
-    restic-b2
+    # restic-b2
 
     (let
       my-python-packages = python-packages: with python-packages; [
@@ -89,25 +102,7 @@
   }; 
 
   programs = {
-   # zsh = {                                       # Post installation script is run in configuration.nix to make it default shell
-   #   enable = true;
-   #   enableAutosuggestions = true;               # Auto suggest options and highlights syntax. It searches in history for options
-   #   enableSyntaxHighlighting = true;
-   #   history.size = 10000;
 
-   #   oh-my-zsh = {                               # Extra plugins for zsh
-   #     enable = true;
-   #     plugins = [ "git" ];
-   #     custom = "$HOME/.config/zsh_nix/custom";
-   #   };
-
-   #   initExtra = ''
-   #     # Spaceship
-   #     source ${pkgs.spaceship-prompt}/share/zsh/site-functions/prompt_spaceship_setup
-   #     autoload -U promptinit; promptinit
-   #     pfetch
-   #   '';                                         # Zsh theme
-   # };
     neovim = {
       enable = true;
       viAlias = true;
@@ -182,20 +177,12 @@
 
   };
 
-  home.file.".config/i3/config" = {
-    source = ./i3-config;
-  };
-
   home.file.".zshrc" = {
     source = ./zshrc;
   };
 
   home.file.".vimrc" = {
     source = ./vimrc;
-  };
-
-  home.file.".gitconfig" = {
-    source = ./gitconfig;
   };
 
   home.file.".tmux.conf" = {
