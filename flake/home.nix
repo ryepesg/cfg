@@ -45,6 +45,7 @@
     gnugrep
     fzf
     zoxide
+    exa
 
     # editor
     vim
@@ -182,15 +183,15 @@
   };
 
   home.file.".vimrc" = {
-    source = ./vimrc;
+    source = ./programs/vimrc;
   };
 
   home.file.".tmux.conf" = {
-    source = ./tmux.conf;
+    source = ./programs/tmux.conf;
   };
 
   home.file.".logseq/" = {
-    source = ./logseq;
+    source = ./programs/logseq;
     recursive = true;
   };
 
@@ -199,7 +200,7 @@
   };
 
   home.file."./.ssh/config" = {
-    source = ./ssh-config;
+    source = ./programs/ssh-config;
   };
 
   # Setup tmux plugins
