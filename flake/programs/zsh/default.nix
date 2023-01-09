@@ -36,14 +36,14 @@
     };
 
     initExtra = ''
-      source .zshrc-grml
+      source .config/zsh/.zshrc-grml
       echo sops -d conf/sops.yml > /dev/null 2>&1
       bindkey '^R' history-incremental-search-backward
       source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
       eval "$(zoxide init zsh)"
       eval "$(direnv hook zsh)"
       # Spaceship
-      source ${pkgs.spaceship-prompt}/share/zsh/site-functions/prompt_spaceship_setup
+      # source ${pkgs.spaceship-prompt}/share/zsh/site-functions/prompt_spaceship_setup
       autoload -U promptinit; promptinit
       pfetch
     '';
