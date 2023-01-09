@@ -3,3 +3,4 @@ dist/
 result
 ./darwin/result
 .DS_Store
+.direnv
