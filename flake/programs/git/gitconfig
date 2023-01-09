@@ -17,8 +17,9 @@
   loa = log --oneline --graph --decorate --all
   ls = ls-files
   ign = ls-files -o -i --exclude-standard
+	ahead = log origin/main..HEAD --oneline
 [credential]
-  helper = cache --timeout=7200
+  helper = cache --timeout=3600
 [credential "https://github.com"]
   username = ryepesg
 #[credential "https://gitlab.com"]
@@ -38,3 +39,9 @@
   defaultBranch = main
 [pull]
   ff = only
+[push]
+	default = matching
+[core]
+	editor = helix
+[credential]
+	

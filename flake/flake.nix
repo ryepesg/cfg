@@ -1,4 +1,4 @@
-#  flake.nix *             
+#  flake.nix *
 #   ├─ ./darwin
 #   │   └─ default.nix
 
@@ -45,7 +45,7 @@
       nixosConfigurations = {
         ricardoyepes = lib.nixosSystem {
           specialArgs = inputs;
-          modules = [ 
+          modules = [
             ./configuration.nix
 
             home-manager.nixosModules.home-manager {              # Home-Manager module that is used.
@@ -54,7 +54,7 @@
               #home-manager.extraSpecialArgs = {
               #  inherit user;
               #  host = {
-              #    hostName = "desktop";     #For Xorg iGPU  | Videocard 
+              #    hostName = "desktop";     #For Xorg iGPU  | Videocard
               #    mainMonitor = "HDMI-A-3"; #HDMIA3         | HDMI-A-1
               #    secondMonitor = "DP-1";   #DP1            | DisplayPort-1
               #  };
@@ -63,7 +63,7 @@
               home-manager.users.${user} = {
                 # imports = [(import ./home.nix)] ++ [(import ./desktop/home.nix)];
                 # imports = [ ./home.nix ];
-                imports = [ 
+                imports = [
                   ./home.nix
                   ./files.nix
                   #./programs/git
