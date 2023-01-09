@@ -1,0 +1,8 @@
+## Description
+
+Personal configuration of NixOS and Nix-Darwin
+
+## Credits
+
+Rafa Alvarez: https://github.com/jralvarezc/conf
+Matthias Benaets: https://github.com/MatthiasBenaets/nixos-config
