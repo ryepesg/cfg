@@ -24,7 +24,7 @@
     enableCompletion = true;
     enableSyntaxHighlighting = true;
 
-    ## Not working in MacOS
+    ## Not working in Mac
     # dotDir = ".config/zsh";
 
     history = {
@@ -81,8 +81,9 @@
       # shutdown = "echo Use: systemctl poweroff";
       # reboot = "echo Use: systemctl reboot";
 
-      pbcopy = "xclip -selection c";
-      pbpaste = "xclip -selection clipboard -o";
+      # TODO: overlays for MacOS vs Linux
+      pbcopy = "/usr/bin/pbcopy || xclip -selection c";
+      pbpaste = "/usr/bin/pbpaste || xclip -selection clipboard -o";
 
     };
 
