@@ -4,9 +4,9 @@
 
   home.file.".config/zsh/.zshrc".source = ./zshrc;
 
- # zsh = {                                       
+ # zsh = {
  # Extra plugins for zsh
- #   oh-my-zsh = {                               
+ #   oh-my-zsh = {
  #     enable = true;
  #     theme = "agnoster";
  #     plugins = [
