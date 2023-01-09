@@ -23,12 +23,13 @@
     enableAutosuggestions = true;
     enableCompletion = true;
     enableSyntaxHighlighting = true;
-    # defaultKeymap = "emacs";
-    dotDir = ".config/zsh";
+
+    ## Not working in MacOS
+    # dotDir = ".config/zsh";
 
     history = {
       expireDuplicatesFirst = true;
-      path = ".config/zsh/.zsh_history";
+      # path = ".config/zsh/.zsh_history";
       ignoreDups = true;
       share = true;
       size = 1000000;
