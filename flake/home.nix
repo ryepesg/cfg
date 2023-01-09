@@ -48,7 +48,7 @@
     exa
     file
     tldr
-    # grml-zsh-config
+    grml-zsh-config
 
     # editor
     vim

@@ -38,6 +38,7 @@
       echo sops -d conf/sops.yml > /dev/null 2>&1
       bindkey '^R' history-incremental-search-backward
       source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
+      source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
       eval "$(zoxide init zsh)"
       eval "$(direnv hook zsh)"
       # Spaceship
