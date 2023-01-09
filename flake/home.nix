@@ -46,6 +46,8 @@
     fzf
     zoxide
     exa
+    file
+    tldr
 
     # editor
     vim
@@ -54,7 +56,6 @@
     # formats
     jq
     yq
-
 
     # networking
     wget
@@ -176,10 +177,6 @@
     #  set -g mouse on
     #'';
 
-  };
-
-  home.file.".zshrc" = {
-    source = ./zshrc;
   };
 
   home.file.".vimrc" = {

@@ -66,9 +66,9 @@
                 imports = [
                   ./home.nix
                   ./files.nix
-                  #./programs/git
-                  #./programs/i3
-                  ./programs/zsh.nix
+                  ./programs/git
+                  ./programs/i3
+                  ./programs/zsh
                 ];
               };
             }
