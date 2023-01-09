@@ -2,7 +2,6 @@
 
 {
 
-  home.file.".config/zsh/.zshrc-grml".source = ./zshrc;
 
  # zsh = {
  # Extra plugins for zsh
@@ -24,7 +23,7 @@
     enableAutosuggestions = true;
     enableCompletion = true;
     enableSyntaxHighlighting = true;
-    #defaultKeymap = "emacs";
+    # defaultKeymap = "emacs";
     dotDir = ".config/zsh";
 
     history = {
@@ -36,7 +35,6 @@
     };
 
     initExtra = ''
-      source .config/zsh/.zshrc-grml
       echo sops -d conf/sops.yml > /dev/null 2>&1
       bindkey '^R' history-incremental-search-backward
       source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
@@ -83,5 +81,7 @@
   programs.command-not-found.enable = false;
 
   programs.fzf.enableZshIntegration = true;
+
+  # home.file.".config/zsh/.zshrc".source = ./zshrc;
 
 }
