@@ -77,6 +77,7 @@
       "rectangle"
       "alfred"
       "keepassxc"
+      "google-drive"
       #"anki"
       #"powershell"
       #"vmware-fusion" Requires Mac update
