@@ -23,7 +23,7 @@
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     #nur = {
     #  url = "github:nix-community/NUR";                                   # NUR Packages
     #};
@@ -63,7 +63,13 @@
               home-manager.users.${user} = {
                 # imports = [(import ./home.nix)] ++ [(import ./desktop/home.nix)];
                 # imports = [ ./home.nix ];
-                imports = [ ./home.nix ./files.nix ];
+                imports = [ 
+                  ./home.nix
+                  ./files.nix
+                  #./programs/git
+                  #./programs/i3
+                  ./programs/zsh.nix
+                ];
               };
             }
 
