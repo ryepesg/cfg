@@ -34,11 +34,16 @@
       size = 1000000;
     };
 
+    # Commands that should be added to top of .zshrc
+    initExtraFirst = ''
+      source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
+      source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
+    '';
+
+    # Extra commands that should be added to .zshrc
     initExtra = ''
       echo sops -d conf/sops.yml > /dev/null 2>&1
       bindkey '^R' history-incremental-search-backward
-      source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
-      source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
       eval "$(zoxide init zsh)"
       # eval "$(direnv hook zsh)"
       # Spaceship
@@ -75,6 +80,9 @@
       # shutdown = "echo Use: systemctl poweroff";
       # reboot = "echo Use: systemctl reboot";
 
+      pbcopy = "xclip -selection c";
+      pbpaste = "xclip -selection clipboard -o";
+
     };
 
   };
@@ -82,7 +90,5 @@
   programs.command-not-found.enable = false;
 
   programs.fzf.enableZshIntegration = true;
-
-  # home.file.".config/zsh/.zshrc".source = ./zshrc;
 
 }
