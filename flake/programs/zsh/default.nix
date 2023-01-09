@@ -82,8 +82,8 @@
       # reboot = "echo Use: systemctl reboot";
 
       # TODO: overlays for MacOS vs Linux
-      pbcopy = "/usr/bin/pbcopy || xclip -selection c";
-      pbpaste = "/usr/bin/pbpaste || xclip -selection clipboard -o";
+      pbcopy = "if [ -f /usr/bin/pbcopy ]; then pbcopy; else xclip -selection c; fi";
+      pbpaste = "if [ -f /usr/bin/pbpaste ]; then pbpaste; else xclip -selection clipboard -o; fi";
 
     };
 
