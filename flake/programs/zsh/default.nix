@@ -40,7 +40,7 @@
       source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
       source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
       eval "$(zoxide init zsh)"
-      eval "$(direnv hook zsh)"
+      # eval "$(direnv hook zsh)"
       # Spaceship
       # source ${pkgs.spaceship-prompt}/share/zsh/site-functions/prompt_spaceship_setup
       # autoload -U promptinit; promptinit
