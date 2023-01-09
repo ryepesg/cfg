@@ -41,6 +41,7 @@
     xclip
     pfetch
     nushell
+    google-cloud-sdk
     (let
       my-python-packages = python-packages: with python-packages; [
         toolz
