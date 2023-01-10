@@ -11,7 +11,6 @@
   #   recursive = true;
   # };
 
-  #home.file."/${homedir}/${user}/.os.sh" = {
   home.file."./.os.sh" = {
     source = ./os.sh;
   };
