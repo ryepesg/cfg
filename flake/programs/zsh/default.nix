@@ -64,7 +64,7 @@
       rg = "rg --color=always";
       jq = "jq -C";
       prune = ''
-        restic-b2 forget --prune \
+        restic-s3 forget --prune \
                          --keep-last 1 \
                          --keep-within 24h \
                          --keep-daily 7 \
@@ -72,7 +72,7 @@
                          --keep-monthly 36 \
                          --keep-yearly 15'';
       backup = ''
-        restic-b2 backup ~ \
+        restic-s3 backup ~ \
                          --exclude=.cache \
                          --one-file-system \
                          --verbose'';

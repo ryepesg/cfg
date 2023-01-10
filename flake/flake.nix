@@ -62,15 +62,7 @@
               home-manager.extraSpecialArgs = { inherit user homedir; };
               home-manager.users.${user} = {
                 # imports = [(import ./home.nix)] ++ [(import ./desktop/home.nix)];
-                # imports = [ ./home.nix ];
-                imports = [
-                  ./home.nix
-                  ./home-linux.nix
-                  ./files.nix
-                  ./programs/git
-                  ./programs/i3
-                  ./programs/zsh
-                ];
+                imports = [ ./home.nix ];
               };
             }
 
