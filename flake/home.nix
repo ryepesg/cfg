@@ -12,7 +12,6 @@
 
   imports = [
     ./packages.nix
-    ./profiles/x.nix
     ./files.nix
     ./programs/git
     ./programs/i3
