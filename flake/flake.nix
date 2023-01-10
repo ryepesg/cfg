@@ -24,13 +24,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #nur = {
-    #  url = "github:nix-community/NUR";                                   # NUR Packages
-    #};
-
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, darwin, nur, nixgl, ... }:   # Function that tells my flake which to use and what do what to do with the dependencies.
+  outputs = inputs @ { self, nixpkgs, home-manager, darwin, nixgl, ... }:   # Function that tells my flake which to use and what do what to do with the dependencies.
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
