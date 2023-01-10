@@ -52,7 +52,7 @@ in
     age
 
     # backup
-    # restic-s3
+    restic-s3
 
     (let
       my-python-packages = python-packages: with python-packages; [
