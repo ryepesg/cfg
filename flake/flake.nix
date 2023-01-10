@@ -38,8 +38,6 @@
       };
       lib = nixpkgs.lib;
       user = "ricardoyepes";
-      homedir = "$HOME";
-      location = "$HOME/code/cfg";
     in {
 
       nixosConfigurations = {
@@ -59,7 +57,7 @@
               #    secondMonitor = "DP-1";   #DP1            | DisplayPort-1
               #  };
               #};                                                  # Pass flake variable
-              home-manager.extraSpecialArgs = { inherit user homedir; };
+              home-manager.extraSpecialArgs = { inherit user; };
               home-manager.users.${user} = {
                 # imports = [(import ./home.nix)] ++ [(import ./desktop/home.nix)];
                 imports = [ ./home.nix ./profiles/x.nix ];
@@ -74,7 +72,7 @@
       darwinConfigurations = (                                              # Darwin Configurations
         import ../darwin {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager darwin user homedir;
+          inherit inputs nixpkgs home-manager darwin user;
         }
       );
 
