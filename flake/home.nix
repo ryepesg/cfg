@@ -1,12 +1,7 @@
-{ config, pkgs, user, homedir, ... }:
+{ config, pkgs, user, ... }:
 
 {
   home.username = "${user}";
-
-  # Home Manager needs information about the
-  # paths it should manage.
-  #home.homeDirectory = "${homedir}";
-  #home.homeDirectory = "$HOME";
 
   home.stateVersion = "22.11";
 

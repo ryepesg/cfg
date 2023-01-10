@@ -1,7 +1,7 @@
-{ config, pkgs, user, homedir, ... }:
+{ config, pkgs, user, ... }:
 let
   inherit (pkgs) callPackage;
-  restic-s3 = pkgs.callPackage ./services/restic/restic-s3.nix { };
+  restic-s3 = pkgs.callPackage ./services/restic/restic-s3.nix { homeDir = "${config.home.homeDirectory}"; };
 in
 {
 
