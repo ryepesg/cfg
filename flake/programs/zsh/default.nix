@@ -38,8 +38,8 @@
     # Commands that should be added to top of .zshrc
     initExtraFirst = ''
       source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
-      source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
     '';
+    # source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
 
     # Extra commands that should be added to .zshrc
     initExtra = ''
