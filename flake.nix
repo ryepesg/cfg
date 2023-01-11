@@ -40,7 +40,7 @@
 
       nixosConfigurations.ricardoyepes = lib.nixosSystem {
           specialArgs = inputs;
-          system = system
+          system = system;
           modules = [
             ./hosts/linux-vm
             ./users/ricardoyepes
