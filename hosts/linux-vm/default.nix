@@ -20,14 +20,14 @@ in
     # ./sound.nix
 
     # Common modules
-    ./modules/nix.nix
-    ./modules/direnv.nix
-    ./modules/locale.nix
-    ./modules/xfonts.nix
-    ./modules/security.nix
-    ./modules/network.nix
-    ./modules/dns.nix
-    ./modules/home.nix
+    ../modules/nix.nix
+    ../modules/direnv.nix
+    ../modules/locale.nix
+    ../modules/xfonts.nix
+    ../modules/security.nix
+    ../modules/network.nix
+    ../modules/dns.nix
+    ../modules/home.nix
 
     # TODO: power.nix for hibernation
 
