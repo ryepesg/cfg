@@ -11,24 +11,31 @@
 
 {
 
-  users.users."${user}" = {               # macOS user
+  imports = [
+    ./system-defaults.nix # Shared macOS system.defaults (also imported by downstream flakes via the cfg flake input)
+  ];
+
+  users.users."${user}" = {
+    # macOS user
     home = "/Users/${user}";
-    shell = pkgs.zsh;                     # Default shell
+    shell = pkgs.zsh; # Default shell
   };
 
   networking = {
-    computerName = "MacBook";             # Host name
+    computerName = "MacBook"; # Host name
     hostName = "MacBook";
   };
 
 
   environment = {
-    shells = with pkgs; [ zsh ];          # Default shell
-    variables = {                         # System variables
+    shells = with pkgs; [ zsh ]; # Default shell
+    variables = {
+      # System variables
       EDITOR = "nvim";
       VISUAL = "nvim";
     };
-    systemPackages = with pkgs; [         # Installed Nix packages
+    systemPackages = with pkgs; [
+      # Installed Nix packages
       # Terminal
       git
       ranger
@@ -38,25 +45,27 @@
     ];
   };
 
-  programs = {                            # Shell needs to be enabled
+  programs = {
+    # Shell needs to be enabled
     zsh.enable = true;
   };
 
   services = {
-    nix-daemon.enable = true;             # Auto upgrade daemon
+    nix-daemon.enable = true; # Auto upgrade daemon
   };
 
-  homebrew = {                            # Declare Homebrew using Nix-Darwin
+  homebrew = {
+    # Declare Homebrew using Nix-Darwin
     enable = true;
     onActivation = {
-      autoUpdate = false;                 # Auto update packages
+      autoUpdate = false; # Auto update packages
       upgrade = false;
-      cleanup = "zap";                    # Uninstall not listed packages and casks
+      cleanup = "zap"; # Uninstall not listed packages and casks
     };
     brews = [
       #"wireguard-tools"
-      "iproute2mac"                       # ip addr, ip link...
-      "iputils"                           # tracepath, arping
+      "iproute2mac" # ip addr, ip link...
+      "iputils" # tracepath, arping
     ];
     casks = [
       "google-chrome"
@@ -78,28 +87,7 @@
 
 
   system = {
-    defaults = {
-      NSGlobalDomain = {                  # Global macOS system settings
-        KeyRepeat = 1;
-        NSAutomaticCapitalizationEnabled = false;
-        NSAutomaticSpellingCorrectionEnabled = false;
-        # Play nice with Aerospace, prefer Windows instead of Tabs for Preview etc (even in Macos full screen mode)
-        AppleWindowTabbingMode = "manual";
-      };
-      dock = {                            # Dock settings
-        autohide = true;
-        orientation = "bottom";
-        showhidden = true;
-        tilesize = 40;
-      };
-      finder = {                          # Finder settings
-        QuitMenuItem = false;             # I believe this probably will need to be true if using spacebar
-      };  
-      trackpad = {                        # Trackpad settings
-        Clicking = true;
-        TrackpadRightClick = true;
-      };
-    };
+    # system.defaults is factored into ./system-defaults.nix (shared via the cfg flake input)
     activationScripts.postActivation.text = ''sudo chsh -s ${pkgs.zsh}/bin/zsh''; # Since it's not possible to declare default shell, run this command after build
     stateVersion = 4;
   };

@@ -1,8 +1,8 @@
 # users/programs/zsh/default.nix
 #
 # Canonical, cross-machine zsh config — the single source of truth shared by:
-#   - cfg  (this repo, another machine)              — imported by its home.nix
-#   - conf (personal flake) via flake input `cfg` — imported in home-darwin.nix
+#   - cfg  (this repo)                            — imported by its home.nix
+#   - a downstream flake via flake input `cfg`    — imported in its home config
 #
 # Written in the current home-manager API (initContent / autosuggestion.enable /
 # syntaxHighlighting.enable) so it evaluates on BOTH home-manager release-26.05

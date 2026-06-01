@@ -29,18 +29,16 @@ outer.right = 8
 # look AT — comms / notes / agenda / preview / browser). The TYPE of key you
 # press tells you which screen before you even think about it.
 # ROLE keywords, not literal display names, so the SAME file works on the
-# personal Mac and the another machine (their screen names differ).
+# different machines (their screen names differ).
 # Assumes the laptop is the primary display (menu bar on built-in) so
 # 'secondary' = the external. Array = ordered fallback: external when docked,
 # else 'main' (the built-in) when undocked, so nothing is orphaned.
-#   Laptop  (numbers): 1 Primary work  2 Project/2nd context  3 Scratch  (4-5 spare)
+#   Laptop  (numbers): 1 Primary work  2 Project/2nd context  3 Scratch
 #   External (letters): C Comms  N Notes  A Agenda  P Preview/outputs  B Browser/research
 [workspace-to-monitor-force-assignment]
 1 = 'built-in'
 2 = 'built-in'
 3 = 'built-in'
-4 = 'built-in'
-5 = 'built-in'
 A = ['secondary', 'main']
 B = ['secondary', 'main']
 C = ['secondary', 'main']
@@ -77,8 +75,6 @@ alt-shift-equal = 'resize smart +50'
 alt-1 = 'workspace 1'   # primary work: terminal + editor
 alt-2 = 'workspace 2'   # project / 2nd context
 alt-3 = 'workspace 3'   # scratch / experiments
-alt-4 = 'workspace 4'   # spare (laptop)
-alt-5 = 'workspace 5'   # spare (laptop)
 alt-c = 'workspace C'   # comms: Slack + email
 alt-n = 'workspace N'   # notes: Logseq
 alt-a = 'workspace A'   # agenda: calendar
@@ -89,8 +85,6 @@ alt-b = 'workspace B'   # browser / research: Brave
 alt-shift-1 = 'move-node-to-workspace 1'
 alt-shift-2 = 'move-node-to-workspace 2'
 alt-shift-3 = 'move-node-to-workspace 3'
-alt-shift-4 = 'move-node-to-workspace 4'
-alt-shift-5 = 'move-node-to-workspace 5'
 alt-shift-c = 'move-node-to-workspace C'
 alt-shift-n = 'move-node-to-workspace N'
 alt-shift-a = 'move-node-to-workspace A'
