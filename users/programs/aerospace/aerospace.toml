@@ -116,3 +116,9 @@ run = 'move-node-to-workspace 5'
 [[on-window-detected]]
 if.app-name-regex-substring = 'preview'
 run = 'move-node-to-workspace 6'
+
+# Float the superwhisper widget so it isn't tiled (it otherwise collides with
+# the terminal, which is annoying). Match by app-id to be precise.
+[[on-window-detected]]
+if.app-id = 'com.superduper.superwhisper'
+run = 'layout floating'
