@@ -44,6 +44,9 @@ alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 alt-shift-f = 'fullscreen'
 
+# Non conflicting old habits
+alt-f4 = 'close'
+
 # Resize
 alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
