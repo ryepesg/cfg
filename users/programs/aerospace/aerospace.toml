@@ -1,0 +1,115 @@
+# Scratch / live-tuning AeroSpace config.
+# Edit freely, then run:  aerospace reload-config
+# When happy, copy this file into the repo at hosts/darwin/aerospace.toml
+# and let Nix manage it (settings = builtins.fromTOML (builtins.readFile ./aerospace.toml);).
+
+# start-at-login is handled by the nix-darwin module in the real setup, so keep it off here.
+start-at-login = false
+
+accordion-padding = 30
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+# Move the pointer to the center of the focused window on every focus change.
+# 'lazy' = only move if the pointer isn't already inside that window.
+on-focus-changed = ['move-mouse window-lazy-center']
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+[key-mapping]
+preset = 'qwerty'
+
+[gaps]
+inner.horizontal = 8
+inner.vertical = 8
+outer.left = 8
+outer.bottom = 8
+outer.top = 8
+outer.right = 8
+
+# alt = the Option (⌥) key
+[mode.main.binding]
+# Focus
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+# Move window
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# Layout
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+alt-shift-f = 'fullscreen'
+
+# Resize
+alt-shift-minus = 'resize smart -50'
+alt-shift-equal = 'resize smart +50'
+
+# Switch to workspace
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+
+# Move focused window to workspace
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+
+alt-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+# App launching (skhd-style: exec-and-forget shells out, detached).
+# 'open -na' forces a new instance; 'open -a' raises the existing one.
+alt-enter = 'exec-and-forget open -na Ghostty'   # terminal
+alt-b = 'exec-and-forget open -a "Microsoft Edge"' # browser
+# alt-c = 'exec-and-forget open -a "Google Chrome"' # chrome (future)
+alt-g = 'exec-and-forget open -a Logseq'          # graph
+
+# Enter service mode
+alt-shift-semicolon = 'mode service'
+
+# Service mode: each action runs then returns to main mode.
+# Enter with alt-shift-; , then press one of these.
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main']
+f = ['layout floating tiling', 'mode main']
+backspace = ['close-all-windows-but-current', 'mode main']
+
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
+
+# Auto-routing: when a matching window opens, send it to a workspace.
+# [[ ]] = a TOML array entry, so you can stack as many rules as you want.
+# NOTE: these fire only when a window is FIRST detected (newly opened, or on
+# AeroSpace restart when all windows are re-detected). They do NOT re-sort
+# windows you manually move during a session — temporary moves stay put until
+# you close the window or restart AeroSpace.
+[[on-window-detected]]
+if.app-name-regex-substring = 'logseq'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'microsoft edge'
+run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'preview'
+run = 'move-node-to-workspace 6'
