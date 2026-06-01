@@ -24,25 +24,28 @@ outer.bottom = 8
 outer.top = 8
 outer.right = 8
 
-# Workspace -> monitor pinning (the macOS analog of i3's `workspace N output X`).
+# Workspace -> monitor pinning. The scheme: NUMBERS live on the laptop (front,
+# where the work happens); LETTERS live on the external (left, the things you
+# look AT — comms / notes / agenda / preview / browser). The TYPE of key you
+# press tells you which screen before you even think about it.
 # ROLE keywords, not literal display names, so the SAME file works on the
 # personal Mac and the another machine (their screen names differ).
-# Pipeline lives on the laptop; the external is the reference/companion plane.
 # Assumes the laptop is the primary display (menu bar on built-in) so
 # 'secondary' = the external. Array = ordered fallback: external when docked,
-# else 'main' (the built-in when undocked) so nothing is orphaned.
-#   Built-in (1-5): 1 Inputs  2 Comms  3 Doing  4 Overflow  5 spare
-#   External (6-9): 6 Research(Brave)  7 Notes(Logseq)  8 Infra  9 Code
+# else 'main' (the built-in) when undocked, so nothing is orphaned.
+#   Laptop  (numbers): 1 Primary work  2 Project/2nd context  3 Scratch  (4-5 spare)
+#   External (letters): C Comms  N Notes  A Agenda  P Preview/outputs  B Browser/research
 [workspace-to-monitor-force-assignment]
 1 = 'built-in'
 2 = 'built-in'
 3 = 'built-in'
 4 = 'built-in'
 5 = 'built-in'
-6 = ['secondary', 'main']
-7 = ['secondary', 'main']
-8 = ['secondary', 'main']
-9 = ['secondary', 'main']
+A = ['secondary', 'main']
+B = ['secondary', 'main']
+C = ['secondary', 'main']
+N = ['secondary', 'main']
+P = ['secondary', 'main']
 
 # alt = the Option (⌥) key
 [mode.main.binding]
@@ -70,37 +73,39 @@ alt-f4 = 'close'
 alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
 
-# Switch to workspace
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-alt-5 = 'workspace 5'
-alt-6 = 'workspace 6'
-alt-7 = 'workspace 7'
-alt-8 = 'workspace 8'
-alt-9 = 'workspace 9'
+# Switch to workspace — numbers = laptop (front), letters = external (left)
+alt-1 = 'workspace 1'   # primary work: terminal + editor
+alt-2 = 'workspace 2'   # project / 2nd context
+alt-3 = 'workspace 3'   # scratch / experiments
+alt-4 = 'workspace 4'   # spare (laptop)
+alt-5 = 'workspace 5'   # spare (laptop)
+alt-c = 'workspace C'   # comms: Slack + email
+alt-n = 'workspace N'   # notes: Logseq
+alt-a = 'workspace A'   # agenda: calendar
+alt-p = 'workspace P'   # preview / rendered outputs / dashboards
+alt-b = 'workspace B'   # browser / research: Brave
 
-# Move focused window to workspace
+# Move focused window to workspace (same number/letter mnemonic)
 alt-shift-1 = 'move-node-to-workspace 1'
 alt-shift-2 = 'move-node-to-workspace 2'
 alt-shift-3 = 'move-node-to-workspace 3'
 alt-shift-4 = 'move-node-to-workspace 4'
 alt-shift-5 = 'move-node-to-workspace 5'
-alt-shift-6 = 'move-node-to-workspace 6'
-alt-shift-7 = 'move-node-to-workspace 7'
-alt-shift-8 = 'move-node-to-workspace 8'
-alt-shift-9 = 'move-node-to-workspace 9'
+alt-shift-c = 'move-node-to-workspace C'
+alt-shift-n = 'move-node-to-workspace N'
+alt-shift-a = 'move-node-to-workspace A'
+alt-shift-p = 'move-node-to-workspace P'
+alt-shift-b = 'move-node-to-workspace B'
 
 alt-tab = 'workspace-back-and-forth'
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
 # App launching (skhd-style: exec-and-forget shells out, detached).
-# 'open -na' forces a new instance; 'open -a' raises the existing one.
-alt-enter = 'exec-and-forget open -na Ghostty'   # terminal
-alt-b = 'exec-and-forget open -a "Microsoft Edge"' # browser
-# alt-c = 'exec-and-forget open -a "Google Chrome"' # chrome (future)
-alt-g = 'exec-and-forget open -a Logseq'          # graph
+# Only a SPAWN action remains. Switching to an app is done by going to its home
+# workspace (the letters above), not by raising the app — so the old
+# alt-b (Brave) / alt-g (Logseq) launchers are gone; alt-b is now the browser
+# WORKSPACE switch, and Logseq is reached via alt-n.
+alt-enter = 'exec-and-forget open -na Ghostty'   # new terminal (-> WS1)
 
 # Enter service mode
 alt-shift-semicolon = 'mode service'
@@ -118,23 +123,60 @@ alt-shift-j = ['join-with down', 'mode main']
 alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
-# Auto-routing: when a matching window opens, send it to a workspace.
+# Auto-routing: when a matching window opens, send it to its home workspace.
 # [[ ]] = a TOML array entry, so you can stack as many rules as you want.
 # NOTE: these fire only when a window is FIRST detected (newly opened, or on
 # AeroSpace restart when all windows are re-detected). They do NOT re-sort
 # windows you manually move during a session — temporary moves stay put until
 # you close the window or restart AeroSpace.
+
+# --- Laptop (numbers) ---
+# WS1 Primary work: terminal (and editor — add a rule once an editor is settled).
+[[on-window-detected]]
+if.app-name-regex-substring = 'ghostty'
+run = 'move-node-to-workspace 1'
+# [[on-window-detected]]
+# if.app-name-regex-substring = 'cursor|visual studio code'
+# run = 'move-node-to-workspace 1'
+
+# --- External (letters) ---
+
+# C Comms: Slack + the Gmail PWA (installed standalone, so it reports the
+# app-name 'Gmail', not the browser).
+[[on-window-detected]]
+if.app-name-regex-substring = 'slack'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'gmail'
+run = 'move-node-to-workspace C'
+
+# A Agenda: the Google Calendar PWA.
+[[on-window-detected]]
+if.app-name-regex-substring = 'calendar'
+run = 'move-node-to-workspace A'
+
+# N Notes: Logseq.
 [[on-window-detected]]
 if.app-name-regex-substring = 'logseq'
-run = 'move-node-to-workspace 4'
+run = 'move-node-to-workspace N'
+
+# B Browser / research: Brave. 'chrome' kept as a harmless no-op for cross-machine
+# parity (a rule whose app isn't installed simply never fires).
+[[on-window-detected]]
+if.app-name-regex-substring = 'brave'
+run = 'move-node-to-workspace B'
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'microsoft edge'
-run = 'move-node-to-workspace 5'
+if.app-name-regex-substring = 'chrome'
+run = 'move-node-to-workspace B'
 
-[[on-window-detected]]
-if.app-name-regex-substring = 'preview'
-run = 'move-node-to-workspace 6'
+# Infra (local VM / remote-box GUIs) has no dedicated workspace in this scheme —
+# drive remote boxes via SSH in the terminal (WS1) or send the GUI somewhere by
+# hand with alt-shift-<n>. Uncomment + pick a home if it earns its own slot.
+# [[on-window-detected]]
+# if.app-name-regex-substring = 'vmware|fusion|utm'
+# run = 'move-node-to-workspace 2'
 
 # Float the superwhisper widget so it isn't tiled (it otherwise collides with
 # the terminal, which is annoying). Match by app-id to be precise.
