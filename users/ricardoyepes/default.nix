@@ -19,7 +19,8 @@ in
 
   imports = [
     # Home-Manager module that is used
-    inputs.home-manager.nixosModules.home-manager {              
+    inputs.home-manager.nixosModules.home-manager
+    {
       home-manager.extraSpecialArgs = { inherit user; };
     }
   ];
@@ -48,7 +49,7 @@ in
   nix.settings.trusted-users = [ login ];
 
   services.gnome.gnome-keyring.enable = true;
-  
+
   # home-manager configuration for user
   home-manager.users."${login}" = import ./home.nix;
 

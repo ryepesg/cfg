@@ -14,7 +14,7 @@ in
     xautolock.time = 600;
 
     desktopManager = {
-    # default = "xfce";
+      # default = "xfce";
       xterm.enable = false;
       xfce = {
         enable = true;

@@ -28,7 +28,7 @@
 
     oh-my-zsh = {
       enable = true;
-      theme = "agnoster";        # cosmetic only; Spaceship (below) sets the prompt
+      theme = "agnoster"; # cosmetic only; Spaceship (below) sets the prompt
       plugins = [ "git" "pip" ];
     };
 
@@ -43,7 +43,7 @@
       rg = "rg --color=always";
       jq = "jq -C";
       nano = "kak";
-      nix = "noglob nix";        # allow #hashtags in flake refs
+      nix = "noglob nix"; # allow #hashtags in flake refs
 
       # Cross-platform clipboard: native on macOS, xclip under X11.
       pbcopy = "if [ -f /usr/bin/pbcopy ]; then pbcopy; else xclip -selection c; fi";

@@ -65,14 +65,16 @@ in
     rclone
     restic-s3
 
-    (let
-      my-python-packages = python-packages: with python-packages; [
-        toolz
-        ipython
-      ];
-      python-with-my-packages = python3.withPackages my-python-packages;
-    in
-    python-with-my-packages)
+    (
+      let
+        my-python-packages = python-packages: with python-packages; [
+          toolz
+          ipython
+        ];
+        python-with-my-packages = python3.withPackages my-python-packages;
+      in
+      python-with-my-packages
+    )
   ];
 
   programs.vscode = {

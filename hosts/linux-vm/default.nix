@@ -11,10 +11,10 @@ let
   user = "ricardoyepes";
 in
 {
-  imports = [ 
+  imports = [
 
     # Linux specific
-    ./hardware.nix 
+    ./hardware.nix
     ./packages.nix
     ./xserver.nix
     # ./sound.nix
@@ -80,11 +80,11 @@ in
   #   "/keyfile.bin" = "/etc/secrets/initrd/keyfile.bin";
   # };
 
-  boot.initrd.supportedFilesystems = ["zfs"]; # boot from zfs
+  boot.initrd.supportedFilesystems = [ "zfs" ]; # boot from zfs
   boot.supportedFilesystems = [ "zfs" ];
   networking.hostId = "714afa97"; # $ head -c 8 /etc/machine-id
 
- 
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

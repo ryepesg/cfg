@@ -13,7 +13,7 @@
     ../programs/zsh
     ../programs/vim
     ../programs/kitty
-    ../programs/restic 
+    ../programs/restic
     ../programs/chromium.nix
   ];
 

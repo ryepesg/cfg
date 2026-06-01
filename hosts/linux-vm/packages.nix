@@ -21,7 +21,7 @@
 
     firefox
     logseq
-    
+
     # https://wiki.linuxfoundation.org/networking/iputils
     iputils # tracepath, arping
 

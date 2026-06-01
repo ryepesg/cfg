@@ -19,14 +19,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixgl = {                                                             # OpenGL
+    nixgl = {
+      # OpenGL
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, darwin, nixgl, ... }:   # Function that tells my flake which to use and what do what to do with the dependencies.
+  outputs = inputs @ { self, nixpkgs, home-manager, darwin, nixgl, ... }: # Function that tells my flake which to use and what do what to do with the dependencies.
     let
       system = "x86_64-linux";
       # pkgs = nixpkgs.legacyPackages."${system}";
@@ -36,20 +37,22 @@
       };
       lib = nixpkgs.lib;
       user = "ricardoyepes";
-    in {
+    in
+    {
 
       nixosConfigurations.ricardoyepes = lib.nixosSystem {
-          specialArgs = inputs;
-          system = system;
-          modules = [
-            ./hosts/linux-vm
-            ./users/ricardoyepes
-            ./users/root
-          ];
-        };
+        specialArgs = inputs;
+        system = system;
+        modules = [
+          ./hosts/linux-vm
+          ./users/ricardoyepes
+          ./users/root
+        ];
+      };
 
 
-      darwinConfigurations = (                                              # Darwin Configurations
+      darwinConfigurations = (
+        # Darwin Configurations
         import ./hosts/darwin {
           inherit (nixpkgs) lib;
           inherit inputs nixpkgs home-manager darwin user;

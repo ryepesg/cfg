@@ -5,7 +5,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (config.lib.formats.rasi) mkLiteral;        # Theme.rasi alternative. Add Theme here
+  inherit (config.lib.formats.rasi) mkLiteral;# Theme.rasi alternative. Add Theme here
 in
 {
   home = {
@@ -17,10 +17,10 @@ in
   programs = {
     rofi = {
       enable = true;
-      terminal = "${pkgs.alacritty}/bin/alacritty";           # Alacritty is default terminal emulator
+      terminal = "${pkgs.alacritty}/bin/alacritty"; # Alacritty is default terminal emulator
       location = "center";
       font = "FiraCode Nerd Font Mono 11";
-      theme =  with colors.scheme.doom; {
+      theme = with colors.scheme.doom; {
         "*" = {
           bg0 = mkLiteral "#${bg}";
           bg1 = mkLiteral "#414868";
