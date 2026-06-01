@@ -83,6 +83,8 @@
         KeyRepeat = 1;
         NSAutomaticCapitalizationEnabled = false;
         NSAutomaticSpellingCorrectionEnabled = false;
+        # Play nice with Aerospace, prefer Windows instead of Tabs for Preview etc (even in Macos full screen mode)
+        AppleWindowTabbingMode = "manual";
       };
       dock = {                            # Dock settings
         autohide = true;
