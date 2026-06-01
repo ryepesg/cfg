@@ -43,7 +43,7 @@ in
     gnugrep
     fzf
     zoxide
-    exa
+    eza
     file
     bat
 
