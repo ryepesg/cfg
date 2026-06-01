@@ -24,6 +24,26 @@ outer.bottom = 8
 outer.top = 8
 outer.right = 8
 
+# Workspace -> monitor pinning (the macOS analog of i3's `workspace N output X`).
+# ROLE keywords, not literal display names, so the SAME file works on the
+# personal Mac and the another machine (their screen names differ).
+# Pipeline lives on the laptop; the external is the reference/companion plane.
+# Assumes the laptop is the primary display (menu bar on built-in) so
+# 'secondary' = the external. Array = ordered fallback: external when docked,
+# else 'main' (the built-in when undocked) so nothing is orphaned.
+#   Built-in (1-5): 1 Inputs  2 Comms  3 Doing  4 Overflow  5 spare
+#   External (6-9): 6 Research(Brave)  7 Notes(Logseq)  8 Infra  9 Code
+[workspace-to-monitor-force-assignment]
+1 = 'built-in'
+2 = 'built-in'
+3 = 'built-in'
+4 = 'built-in'
+5 = 'built-in'
+6 = ['secondary', 'main']
+7 = ['secondary', 'main']
+8 = ['secondary', 'main']
+9 = ['secondary', 'main']
+
 # alt = the Option (⌥) key
 [mode.main.binding]
 # Focus

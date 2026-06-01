@@ -50,8 +50,8 @@
       pbpaste = "if [ -f /usr/bin/pbpaste ]; then pbpaste; else xclip -selection clipboard -o; fi";
 
       # Host-specific aliases. Harmless on the other machine — an alias only
-      # fails if actually run, never at shell startup.
-      drs = "sudo darwin-rebuild switch --flake ~/conf#macbook";
+      # fails if actually run, never at shell startup. (`drs` lives in conf's
+      # home-darwin.nix instead, since it carries a personal --override-input.)
       prune = ''
         restic-s3 forget --prune \
                          --keep-last 1 \
@@ -86,15 +86,37 @@
         return 0
       }
 
-      # Prompt: Spaceship. Show the real directory path instead of collapsing it
-      # to the git repo name (these must be set before the prompt is sourced).
+      # Prompt: Spaceship, PATH ONLY. Every other section (git / gcloud / venv /
+      # nix_shell / exec_time / …) is removed from the always-on prompt; render
+      # any of them on demand with `spsec <section>` or `ctx` (defined below).
+      # See the logseq `tool/Spaceship` page. The DIR vars show the real path
+      # instead of collapsing to the git repo name, and must precede the source.
       export SPACESHIP_DIR_TRUNC_REPO=false
-      export SPACESHIP_DIR_TRUNC=3   # last 3 path segments; set 0 for the full path
+      export SPACESHIP_DIR_TRUNC=3        # last 3 path segments; 0 = full path
+      SPACESHIP_PROMPT_ORDER=(dir char)   # only the path (+ the prompt character)
       source ${pkgs.spaceship-prompt}/share/zsh/site-functions/prompt_spaceship_setup
       autoload -U promptinit; promptinit
       command -v pfetch >/dev/null && pfetch   # fetch logo on terminal start
 
+      # On-demand prompt sections. Spaceship only loads section files listed in
+      # the prompt order, so lazy-source the file before rendering it:
+      #   spsec gcloud   spsec git   spsec venv   spsec nix_shell
+      #   ctx            -> dumps the common context sections at once
+      spsec() {
+        local s=$1
+        [[ -r $SPACESHIP_ROOT/sections/$s.zsh ]] && builtin source $SPACESHIP_ROOT/sections/$s.zsh
+        print -P "$(spaceship::section::render "$(spaceship_$s)")"
+      }
+      ctx() { local s; for s in git gcloud venv nix_shell; do spsec $s; done }
+
       command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
+
+      # A fresh interactive shell shouldn't inherit a parent's direnv state (e.g.
+      # the terminal/WM was launched from inside a direnv'd dir). Without this,
+      # direnv's first hook sees the inherited DIRENV_DIR, notices we aren't in
+      # it, and prints a spurious "direnv: unloading". Drop the bookkeeping so it
+      # starts clean (a real direnv dir just re-loads, cached & instant).
+      unset DIRENV_DIFF DIRENV_DIR DIRENV_FILE DIRENV_WATCHES
       command -v direnv >/dev/null && eval "$(direnv hook zsh)"
     '';
   };
