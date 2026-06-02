@@ -14,6 +14,17 @@
 # Starship (HM-native, fast, cross-shell) trimmed to directory + git; completion
 # + autosuggestion + syntax highlighting use home-manager's native options rather
 # than oh-my-zsh.
+#
+# No zsh framework, on purpose:
+#   - oh-my-zsh REMOVED. What we actually used from it (git/completion plugins,
+#     the ls-family aliases l/la/ll/lsa) is covered by HM-native options +
+#     Starship; the ls aliases were re-added explicitly below. Dropping omz
+#     removes a whole framework + its startup cost for things we already have.
+#   - grml-zsh-config deliberately NOT adopted. It's an all-or-nothing zshrc
+#     that clashes with Starship (prompt) and double-runs compinit/zstyles, and
+#     duplicates what we set natively — net redundant + conflict-prone. (It also
+#     ships an `l` alias, but it was never sourced here.) See logseq
+#     `cs/os/Nix/conf and cfg` for the full evaluation.
 
 { config, lib, pkgs, ... }:
 
@@ -36,6 +47,13 @@
       cp = "cp -i";
       rm = "rm -i";
       ls = "eza";
+      # ls-family shorthands carried over from oh-my-zsh (dropped — see header),
+      # remapped to eza. NB: eza has no `-A`; its `-a` already hides ./.. like
+      # `ls -A`, and `-h` adds a header row (eza sizes are human-readable anyway).
+      l = "eza -lah"; # long + hidden + header   (omz l='ls -lah')
+      la = "eza -lah"; # omz la='ls -lAh' (no -A in eza → same as l here)
+      ll = "eza -lh"; # long + header, no hidden (omz ll='ls -lh')
+      lsa = "eza -lah"; # omz lsa='ls -lah' (alias of l)
       cat = "bat";
       less = "bat";
       more = "bat";
