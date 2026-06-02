@@ -55,6 +55,7 @@
       la = "eza -lah"; # omz la='ls -lAh' (no -A in eza → same as l here)
       ll = "eza -lh"; # long + header, no hidden (omz ll='ls -lh')
       lsa = "eza -lah"; # omz lsa='ls -lah' (alias of l)
+      tree = "eza -T"; # tree view via eza (replaces the standalone `tree` pkg)
       cat = "bat";
       less = "bat";
       more = "bat";

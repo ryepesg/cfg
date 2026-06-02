@@ -64,7 +64,7 @@
 
     # shell ergonomics
     coreutils
-    tree
+    # tree — replaced by the `tree = "eza -T"` shell alias (zsh module)
     pstree
 
     # files
@@ -76,7 +76,9 @@
     eza
     # file — macOS ships /usr/bin/file
     bat
-    lf
+    # lf — TUI file manager, not currently used; also undecided vs yazi (a more
+    # modern Rust TUI file manager with image previews). Re-enable lf or add yazi
+    # if/when a TUI file manager is wanted.
     sd
 
     # formats
