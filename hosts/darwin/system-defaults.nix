@@ -15,6 +15,14 @@
 { ... }:
 
 {
+  # System-wide env vars, shared across every machine that imports this module.
+  # nvim resolves on PATH (neovim comes from cfg's home baseline). git has no
+  # core.editor set, so it falls back to these too.
+  environment.variables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
+
   system.defaults = {
     NSGlobalDomain = {
       # Global macOS system settings

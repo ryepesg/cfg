@@ -21,7 +21,7 @@
 {
   imports = [
     ./zsh # canonical cross-machine zsh (path-only Spaceship prompt, aliases, history)
-    ./git # programs.git + the shared .gitconfig
+    ./git # programs.git aliases/tools (identity-free; name/email set per-machine)
     ./editors/nvim # neovim (withRuby / withPython3 off)
   ];
 

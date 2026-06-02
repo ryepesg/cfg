@@ -64,7 +64,7 @@
     },
     "window.zoomLevel": 1,
     "cph.general.defaultLanguage": "python",
-    "cph.general.defaultLanguageTemplateFileLocation": "/Users/ricardoyepes/code/main.py",
+    "cph.general.defaultLanguageTemplateFileLocation": "~/code/main.py",
     "cph.general.menuChoices": "cpp python",
     "python.languageServer": "Pylance",
     "notebook.cellToolbarLocation": {

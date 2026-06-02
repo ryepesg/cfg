@@ -34,7 +34,7 @@ outer.right = 8
 # 'secondary' = the external. Array = ordered fallback: external when docked,
 # else 'main' (the built-in) when undocked, so nothing is orphaned.
 #   Laptop  (numbers): 1 Primary work  2 Project/2nd context  3 Scratch  (4-5 spare)
-#   External (letters): C Comms  N Notes  A Agenda  P Preview overflow  B Browser/research
+#   External (letters): C Comms  N Notes  A Agenda  I Intelligence  M Media  P Preview  B Browser/research
 [workspace-to-monitor-force-assignment]
 1 = 'built-in'
 2 = 'built-in'
@@ -44,6 +44,8 @@ outer.right = 8
 A = ['secondary', 'main']
 B = ['secondary', 'main']
 C = ['secondary', 'main']
+I = ['secondary', 'main']
+M = ['secondary', 'main']
 N = ['secondary', 'main']
 P = ['secondary', 'main']
 
@@ -82,7 +84,9 @@ alt-5 = 'workspace 5'   # spare (laptop)
 alt-c = 'workspace C'   # comms: Slack + email
 alt-n = 'workspace N'   # notes: Logseq
 alt-a = 'workspace A'   # agenda: calendar
-alt-p = 'workspace P'   # preview overflow (spillover space for previews)
+alt-i = 'workspace I'   # intelligence
+alt-m = 'workspace M'   # media
+alt-p = 'workspace P'   # preview
 alt-b = 'workspace B'   # browser / research: Brave
 
 # Move focused window to workspace (same number/letter mnemonic)
@@ -94,6 +98,8 @@ alt-shift-5 = 'move-node-to-workspace 5'
 alt-shift-c = 'move-node-to-workspace C'
 alt-shift-n = 'move-node-to-workspace N'
 alt-shift-a = 'move-node-to-workspace A'
+alt-shift-i = 'move-node-to-workspace I'
+alt-shift-m = 'move-node-to-workspace M'
 alt-shift-p = 'move-node-to-workspace P'
 alt-shift-b = 'move-node-to-workspace B'
 
@@ -161,6 +167,21 @@ run = 'move-node-to-workspace A'
 if.app-name-regex-substring = 'logseq'
 run = 'move-node-to-workspace N'
 
+# I Intelligence: the Claude PWA. Install it standalone (Edge/Brave -> Apps ->
+# "Install this site as an app") so it reports the app-name 'Claude' rather than
+# the browser — same standalone-PWA trick as Gmail/Calendar above. Until then this
+# is a harmless no-op (a rule whose app isn't installed simply never fires); Claude
+# opened as a plain browser tab stays with the browser on B.
+[[on-window-detected]]
+if.app-name-regex-substring = 'claude'
+run = 'move-node-to-workspace I'
+
+# M Media: the YouTube PWA (install standalone so it reports the app-name
+# 'YouTube', same trick as the other PWAs above). 
+[[on-window-detected]]
+if.app-name-regex-substring = 'youtube'
+run = 'move-node-to-workspace M'
+
 # B Browser / research: Brave. 'chrome' kept as a harmless no-op for cross-machine
 # parity (a rule whose app isn't installed simply never fires).
 # Browser windows stack as an accordion on B (one expanded, the rest as titled
@@ -171,8 +192,13 @@ if.app-name-regex-substring = 'brave'
 run = ['move-node-to-workspace B', 'layout accordion']
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'chrome'
+if.app-name-regex-substring = 'edge'
 run = ['move-node-to-workspace B', 'layout accordion']
+
+# W for Work related browser
+[[on-window-detected]]
+if.app-name-regex-substring = 'chrome'
+run = ['move-node-to-workspace W', 'layout accordion']
 
 # Infra (local VM / remote-box GUIs) has no dedicated workspace in this scheme —
 # drive remote boxes via SSH in the terminal (WS1) or send the GUI somewhere by

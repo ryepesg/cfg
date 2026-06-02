@@ -65,6 +65,13 @@
               home.stateVersion = "22.11";
               programs.home-manager.enable = true;
 
+              # Git identity for THIS machine. The shared cfg git module is
+              # identity-free (aliases/tools only), so set name + email here.
+              programs.git.settings.user = {
+                name = "CHANGE_ME"; # ← your git author name
+                email = "CHANGE_ME"; # ← e.g. ID+user@users.noreply.github.com
+              };
+
               # Machine-only packages / aliases go here, e.g.:
               # home.packages = with import inputs.nixpkgs { inherit system; }; [ ];
 
