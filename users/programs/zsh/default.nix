@@ -42,7 +42,6 @@
       more = "bat";
       rg = "rg --color=always";
       jq = "jq -C";
-      nano = "kak";
       nix = "noglob nix"; # allow #hashtags in flake refs
 
       # Cross-platform clipboard: native on macOS, xclip under X11.
