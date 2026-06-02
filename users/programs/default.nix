@@ -68,7 +68,9 @@
 
     # files
     fd
-    ripgrep
+    # eza, bat, ripgrep (and jq below) live in the zsh module now — they back its
+    # ls/cat/rg/jq aliases, so that module stays self-contained when imported
+    # alone (homeManagerModules.zsh). This bundle still gets them via ./zsh.
     # gnugrep dropped: it was here mainly for `grep -P` (PCRE), which macOS's BSD
     # grep lacks. ripgrep is built with PCRE2 (10.45, JIT), so `rg -P` covers PCRE
     # — for files and as a stdin filter. Bare `grep` falls back to BSD grep

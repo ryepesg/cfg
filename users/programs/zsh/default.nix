@@ -109,6 +109,16 @@
         return 0
       }
 
+      # `grep` nudge: still runs the real grep (scripts/pipes are unaffected — this
+      # interactive function isn't seen by separate script processes), but prints a
+      # reminder to STDERR to retrain onto `rg -P`. `command grep` avoids recursion;
+      # "$@" + returning grep's status keeps `if grep -q …`, pipes, `grep -c`, etc.
+      # working unchanged.
+      grep() {
+        print -u2 "reminder: prefer 'rg -P' (ripgrep, PCRE2) — running grep anyway"
+        command grep "$@"
+      }
+
       # Prompt is Starship (programs.starship below) — wired into zsh by
       # home-manager and trimmed to directory + git (see its settings). A
       # startup system-info logo is a per-machine opt-in, not shared here.
@@ -124,6 +134,14 @@
       unset DIRENV_DIFF DIRENV_DIR DIRENV_FILE DIRENV_WATCHES
     '';
   };
+
+  # Binaries the aliases/config above depend on, so this module is self-contained
+  # when imported on its own (homeManagerModules.zsh): eza → ls/l/la/ll/lsa/tree;
+  # bat → cat/less/more; ripgrep → rg (and the grep nudge points at it); jq → jq.
+  # fzf/zoxide/direnv/starship install themselves via their programs.* options;
+  # dircolors (coreutils) is `command -v`-guarded. default.nix re-uses these via
+  # its `./zsh` import, so it no longer lists them itself.
+  home.packages = with pkgs; [ eza bat ripgrep jq ];
 
   programs.command-not-found.enable = false;
 
