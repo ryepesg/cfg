@@ -30,6 +30,16 @@
   # ./vim module — importing that too would double-define programs.neovim.)
   home.file.".vimrc".source = ./vim/vimrc;
 
+  # tealdeer: fast Rust `tldr` client (provides the `tldr` command), managed via
+  # its program module rather than a bare package so the cache auto-updates.
+  programs.tealdeer = {
+    enable = true;
+    settings.updates = {
+      auto_update = true;
+      auto_update_interval_hours = 720; # refresh the page cache every 30 days
+    };
+  };
+
   # The portable CLI baseline. Add a tool here once and it lands on every machine
   # that imports this module. Nothing secret or machine-specific belongs in here.
   home.packages = with pkgs; [
@@ -37,12 +47,6 @@
 
     # system info
     btop
-
-    # docs
-    # tealdeer = fast Rust `tldr` client (still provides the `tldr` command).
-    # Caches pages locally and renders near-instantly, vs the slower reference
-    # client; actively maintained and a single static binary.
-    tealdeer
 
     # spelling
     diction

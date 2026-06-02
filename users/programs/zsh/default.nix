@@ -42,16 +42,21 @@
       rg = "rg --color=always";
       jq = "jq -C";
       nix = "noglob nix"; # allow #hashtags in flake refs
+      gs = "git status"; # NB: shadows ghostscript's `gs` (use `command gs` for that)
 
-      # Cross-platform clipboard: native on macOS, xclip under X11.
-      pbcopy = "if [ -f /usr/bin/pbcopy ]; then pbcopy; else xclip -selection c; fi";
-      pbpaste = "if [ -f /usr/bin/pbpaste ]; then pbpaste; else xclip -selection clipboard -o; fi";
+      # Cross-platform clipboard: native on macOS, xclip under X11. Both commented
+      # out — cfg is macOS-only now, so the native pbcopy/pbpaste are used directly
+      # and the xclip fallback is dead. Re-enable if a Linux/X11 consumer appears.
+      # pbcopy = "if [ -f /usr/bin/pbcopy ]; then pbcopy; else xclip -selection c; fi";
+      # pbpaste = "if [ -f /usr/bin/pbpaste ]; then pbpaste; else xclip -selection clipboard -o; fi";
     };
 
     initContent = ''
       export PATH=$PATH:~/.local/bin
 
-      bindkey '^R' history-incremental-search-backward
+      # Ctrl-R is left to fzf's fuzzy history widget (programs.fzf below). A
+      # manual `bindkey '^R' history-incremental-search-backward` used to live
+      # here and clobbered it — removed so fzf owns reverse history search.
 
       # Don't record typos / unknown commands in history. Runs before execution,
       # so it keeps a line only if its command word resolves (alias / function /
@@ -107,5 +112,12 @@
     # cmd_duration, …) never render. Add a module back by inserting its
     # `$name` here. git_branch = branch name; git_status = dirty/ahead markers.
     format = "$directory$git_branch$git_status$character";
+
+    # Keep Starship's default truncate_to_repo = true (the prompt path collapses
+    # to the git-repo root). The full working path is already shown in the
+    # Ghostty window/tab title, so repeating it in the prompt is redundant.
+    # To show the real path in the prompt instead (the old Spaceship
+    # SPACESHIP_DIR_TRUNC_REPO=false), uncomment:
+    # directory.truncate_to_repo = false;
   };
 }

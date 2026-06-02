@@ -6,21 +6,24 @@
 # private flake (e.g. conf, or the machine template). settings merges across
 # modules, so the identity attrs land alongside these.
 {
+  # delta: syntax-highlighted, readable git diffs. Installs the `delta` package
+  # and (via enableGitIntegration) wires it as git's pager (core.pager) + the
+  # interactive diff filter, and writes the [delta] config — no separate package
+  # or core.pager line needed. Doesn't conflict with diff/merge.tool = vimdiff
+  # (those drive `git difftool`/`mergetool`; delta only formats pager output).
+  # NB: moved from the old programs.git.delta.* (renamed by home-manager), and
+  # enableGitIntegration is set explicitly since auto-enable is now deprecated.
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      navigate = true; # n / N to jump between diff hunks in the pager
+      line-numbers = true;
+    };
+  };
+
   programs.git = {
     enable = true;
-
-    # delta: syntax-highlighted, readable git diffs. This HM option installs the
-    # `delta` package and wires it as git's pager (core.pager) + the interactive
-    # diff filter, and writes the [delta] config below — no separate package or
-    # core.pager line needed. Doesn't conflict with diff/merge.tool = vimdiff
-    # (those drive `git difftool`/`mergetool`; delta only formats pager output).
-    delta = {
-      enable = true;
-      options = {
-        navigate = true; # n / N to jump between diff hunks in the pager
-        line-numbers = true;
-      };
-    };
 
     settings = {
       alias = {
