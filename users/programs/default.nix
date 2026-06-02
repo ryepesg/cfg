@@ -77,16 +77,13 @@
     # (POSIX only, no -P). Re-add gnugrep if a script needs the literal `grep -P`.
     # fzf + zoxide are installed by their home-manager program modules (see the
     # zsh module: programs.fzf.enable / programs.zoxide.enable) — not listed here.
-    eza
     # file — macOS ships /usr/bin/file
-    bat
     # lf — TUI file manager, not currently used; also undecided vs yazi (a more
     # modern Rust TUI file manager with image previews). Re-enable lf or add yazi
     # if/when a TUI file manager is wanted.
     sd
 
     # formats
-    jq
     yq
 
     # compress
