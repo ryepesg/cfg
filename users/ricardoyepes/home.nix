@@ -9,12 +9,9 @@
     ./packages.nix
     ./files.nix
     ../programs/git
-    ../programs/i3
     ../programs/zsh
     ../programs/vim
-    ../programs/kitty
     ../programs/restic
-    ../programs/chromium.nix
   ];
 
   # Let Home Manager install and manage itself
@@ -23,7 +20,5 @@
   home.sessionVariables = {
     PAGER = "less -R";
   };
-
-  systemd.user.startServices = true;
 
 }

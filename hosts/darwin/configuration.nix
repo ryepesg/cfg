@@ -50,9 +50,11 @@
     zsh.enable = true;
   };
 
-  services = {
-    nix-daemon.enable = true; # Auto upgrade daemon
-  };
+  fonts.packages = with pkgs; [
+    source-code-pro
+    font-awesome
+    nerd-fonts.fira-code
+  ];
 
   homebrew = {
     # Declare Homebrew using Nix-Darwin
@@ -86,11 +88,27 @@
 
 
 
+  nix = {
+    package = pkgs.nix;
+    gc = {
+      # Garbage collection
+      automatic = true;
+      interval.Day = 7;
+      options = "--delete-older-than 7d";
+    };
+    extraOptions = ''
+      auto-optimise-store = true
+      experimental-features = nix-command flakes
+    '';
+  };
+
   system = {
+    primaryUser = "${user}"; # Required: user-specific system.defaults apply to this user
     # system.defaults is factored into ./system-defaults.nix (shared via the cfg flake input)
     activationScripts.postActivation.text = ''sudo chsh -s ${pkgs.zsh}/bin/zsh''; # Since it's not possible to declare default shell, run this command after build
     stateVersion = 4;
   };
 
+  nixpkgs.config.allowUnfree = true;
 
 }

@@ -3,7 +3,7 @@
 #   │   └─ default.nix
 
 {
-  description = "Personal configuration for Linux and MacOS";
+  description = "Personal configuration for MacOS";
 
   inputs = {
 
@@ -19,37 +19,24 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixgl = {
-      # OpenGL
-      url = "github:guibou/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, darwin, nixgl, ... }: # Function that tells my flake which to use and what do what to do with the dependencies.
+  outputs = inputs @ { self, nixpkgs, home-manager, darwin, ... }:
     let
-      system = "x86_64-linux";
-      # pkgs = nixpkgs.legacyPackages."${system}";
+      systemDarwin = "aarch64-darwin";
       pkgs = import nixpkgs {
-        system = "x86_64-linux";
+        system = systemDarwin;
         config.allowUnfree = true;
       };
-      lib = nixpkgs.lib;
       user = "ricardoyepes";
     in
     {
 
-      nixosConfigurations.ricardoyepes = lib.nixosSystem {
-        specialArgs = inputs;
-        system = system;
-        modules = [
-          ./hosts/linux-vm
-          ./users/ricardoyepes
-          ./users/root
-        ];
-      };
-
+      # Reusable, machine-agnostic modules consumed by downstream PRIVATE flakes
+      # (personal `conf`, the work computer) via `inputs.cfg.<...>`. These are the
+      # public/shared half; nothing here names a user or a machine.
+      darwinModules.systemDefaults = ./hosts/darwin/system-defaults.nix;
+      homeManagerModules.zsh = ./users/programs/zsh/default.nix;
 
       darwinConfigurations = (
         # Darwin Configurations
@@ -60,8 +47,7 @@
       );
 
       # nix develop
-      devShell."${system}" = import ./shells/shell.nix { inherit pkgs; };
-
+      devShell."${systemDarwin}" = import ./shells/shell.nix { inherit pkgs; };
 
     };
 }
