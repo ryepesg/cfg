@@ -17,7 +17,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     darwin = {
-      url = "github:lnl7/nix-darwin";
+      url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -38,6 +38,7 @@
       # Reusable modules consumed downstream via `inputs.cfg.<...>`. Add more as
       # needed, e.g. homeManagerModules.git = ./users/programs/git;
       darwinModules.systemDefaults = ./hosts/darwin/system-defaults.nix;
+      darwinModules.jankyborders = ./hosts/darwin/jankyborders.nix;
       homeManagerModules.zsh = ./users/programs/zsh/default.nix;
 
       # `nix develop` for working on this repo (just / nixpkgs-fmt / manix / …).
