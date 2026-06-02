@@ -36,12 +36,13 @@
     vim
 
     # system info
-    htop
-    fastfetch # system-info logo shown on shell start by the zsh module
+    btop
 
     # docs
-    tldr
-    manix
+    # tealdeer = fast Rust `tldr` client (still provides the `tldr` command).
+    # Caches pages locally and renders near-instantly, vs the slower reference
+    # client; actively maintained and a single static binary.
+    tealdeer
 
     # spelling
     diction
@@ -74,15 +75,13 @@
     yq
 
     # compress
-    unzip
-    unrar
+    #unzip
+    #unrar
 
     # crypto
-    age
+    #age
 
     # networking
-    # nmap deliberately NOT here — pentest tooling is too opinionated for this
-    # shared baseline (corporate machines import it). Install ad-hoc where needed.
     dnsutils # dig, host, nslookup (single bind bundle, avoids man-page collision)
     # wget excluded: curl ships with macOS and covers everyday fetching; add wget
     # per-machine only if recursive/mirroring downloads are actually needed.

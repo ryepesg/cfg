@@ -10,11 +10,10 @@
 # is missing on one host (an alias only fails when invoked, not at startup);
 # startup-time evals (zoxide/direnv) are guarded with `command -v`.
 #
-# Deliberately low-opinion so it's safe to import on any machine (incl. a
-# corporate one): the prompt is Starship (HM-native, fast, cross-shell) on its
-# defaults; completion + autosuggestion + syntax highlighting use home-manager's
-# native options rather than oh-my-zsh. Machine-specific bits (pentest tools,
-# restic helpers) live in the consuming flake, not here.
+# Deliberately low-opinion so it's safe to import on any machine: the prompt is
+# Starship (HM-native, fast, cross-shell) trimmed to directory + git; completion
+# + autosuggestion + syntax highlighting use home-manager's native options rather
+# than oh-my-zsh.
 
 { config, lib, pkgs, ... }:
 
@@ -68,11 +67,9 @@
         return 0
       }
 
-      # Prompt is Starship (programs.starship below), on its defaults — it shows
-      # directory plus per-directory context (git / python / nix-shell / …)
-      # automatically and is wired into zsh by home-manager.
-
-      command -v fastfetch >/dev/null && fastfetch   # system-info logo on start
+      # Prompt is Starship (programs.starship below) — wired into zsh by
+      # home-manager and trimmed to directory + git (see its settings). A
+      # startup system-info logo is a per-machine opt-in, not shared here.
 
       command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 
@@ -89,9 +86,15 @@
   programs.command-not-found.enable = false;
   programs.fzf.enableZshIntegration = true;
 
-  # Prompt. Starship on its defaults: fast, cross-shell, corporate-neutral, and
-  # auto-shows directory context. home-manager installs the package and adds the
-  # zsh integration (enableZshIntegration defaults true). Customise per-machine
-  # via programs.starship.settings if ever needed.
+  # Prompt. Starship (fast, cross-shell, visually neutral). home-manager installs
+  # the package + zsh integration (enableZshIntegration defaults true).
   programs.starship.enable = true;
+  programs.starship.settings = {
+    # Quiet, focused prompt: directory + git only. The `format` string is an
+    # explicit allowlist — any module NOT listed is omitted, so the noisy
+    # context modules (nix_shell, gcloud/cloud, python/venv, language versions,
+    # cmd_duration, …) never render. Add a module back by inserting its
+    # `$name` here. git_branch = branch name; git_status = dirty/ahead markers.
+    format = "$directory$git_branch$git_status$character";
+  };
 }
