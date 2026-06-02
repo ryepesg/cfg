@@ -41,6 +41,24 @@
       darwinModules.jankyborders = ./hosts/darwin/jankyborders.nix;
       homeManagerModules.zsh = ./users/programs/zsh/default.nix;
 
+      # The shared home baseline — CLI package set + the canonical program
+      # modules (zsh / git / neovim). Machine flakes import this and add only a
+      # thin per-machine delta, so installing a CLI tool once reaches both
+      # laptops. See ./users/programs/default.nix. (`homeManagerModules.zsh`
+      # above stays exposed for anything that wants zsh alone; `default` already
+      # bundles it, so don't import both in the same home config.)
+      homeManagerModules.default = ./users/programs/default.nix;
+
+      # Scaffold for a private per-machine flake that imports this library:
+      # follows cfg/{nixpkgs,home-manager,darwin} and imports
+      # homeManagerModules.default + darwinModules.systemDefaults, with the
+      # machine identity (user / hostname / casks) left to fill in.
+      #   nix flake init -t github:ryepesg/cfg
+      templates.default = {
+        path = ./templates/machine;
+        description = "Private macOS machine flake that imports cfg";
+      };
+
       # `nix develop` for working on this repo (just / nixpkgs-fmt / manix / …).
       devShell."${systemDarwin}" = import ./shells/shell.nix { inherit pkgs; };
     };

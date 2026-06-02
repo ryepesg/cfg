@@ -34,7 +34,7 @@ outer.right = 8
 # 'secondary' = the external. Array = ordered fallback: external when docked,
 # else 'main' (the built-in) when undocked, so nothing is orphaned.
 #   Laptop  (numbers): 1 Primary work  2 Project/2nd context  3 Scratch  (4-5 spare)
-#   External (letters): C Comms  N Notes  A Agenda  P Preview/outputs  B Browser/research
+#   External (letters): C Comms  N Notes  A Agenda  P Preview overflow  B Browser/research
 [workspace-to-monitor-force-assignment]
 1 = 'built-in'
 2 = 'built-in'
@@ -82,7 +82,7 @@ alt-5 = 'workspace 5'   # spare (laptop)
 alt-c = 'workspace C'   # comms: Slack + email
 alt-n = 'workspace N'   # notes: Logseq
 alt-a = 'workspace A'   # agenda: calendar
-alt-p = 'workspace P'   # preview / rendered outputs / dashboards
+alt-p = 'workspace P'   # preview overflow (spillover space for previews)
 alt-b = 'workspace B'   # browser / research: Brave
 
 # Move focused window to workspace (same number/letter mnemonic)
@@ -163,13 +163,16 @@ run = 'move-node-to-workspace N'
 
 # B Browser / research: Brave. 'chrome' kept as a harmless no-op for cross-machine
 # parity (a rule whose app isn't installed simply never fires).
+# Browser windows stack as an accordion on B (one expanded, the rest as titled
+# slivers) — better for many tabs/windows than tiling them small. The array runs
+# the move first, then sets B's layout, as each browser window is detected.
 [[on-window-detected]]
 if.app-name-regex-substring = 'brave'
-run = 'move-node-to-workspace B'
+run = ['move-node-to-workspace B', 'layout accordion']
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'chrome'
-run = 'move-node-to-workspace B'
+run = ['move-node-to-workspace B', 'layout accordion']
 
 # Infra (local VM / remote-box GUIs) has no dedicated workspace in this scheme —
 # drive remote boxes via SSH in the terminal (WS1) or send the GUI somewhere by
