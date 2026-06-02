@@ -65,12 +65,14 @@
     # shell ergonomics
     coreutils
     # tree — replaced by the `tree = "eza -T"` shell alias (zsh module)
-    pstree
 
     # files
     fd
     ripgrep
-    gnugrep
+    # gnugrep dropped: it was here mainly for `grep -P` (PCRE), which macOS's BSD
+    # grep lacks. ripgrep is built with PCRE2 (10.45, JIT), so `rg -P` covers PCRE
+    # — for files and as a stdin filter. Bare `grep` falls back to BSD grep
+    # (POSIX only, no -P). Re-add gnugrep if a script needs the literal `grep -P`.
     # fzf + zoxide are installed by their home-manager program modules (see the
     # zsh module: programs.fzf.enable / programs.zoxide.enable) — not listed here.
     eza

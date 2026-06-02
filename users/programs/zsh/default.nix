@@ -44,8 +44,12 @@
     };
 
     shellAliases = {
-      mv = "mv -i";
-      cp = "cp -i";
+      # cp/mv pinned to the BSD /bin versions: macOS's cp/mv preserve extended
+      # attributes (com.apple.* xattrs — Finder tags, quarantine, resource forks)
+      # that the GNU coreutils cp/mv (ahead on PATH) silently drop. -i prompts
+      # before clobbering. rm has no such metadata concern, so it stays bare.
+      mv = "/bin/mv -i";
+      cp = "/bin/cp -i";
       rm = "rm -i";
       ls = "eza";
       # ls-family shorthands carried over from oh-my-zsh (dropped — see header),
