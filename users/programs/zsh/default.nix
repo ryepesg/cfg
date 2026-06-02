@@ -67,6 +67,7 @@
       jq = "jq -C";
       nix = "noglob nix"; # allow #hashtags in flake refs
       gs = "git status"; # NB: shadows ghostscript's `gs` (use `command gs` for that)
+      gst = "git status -s"; # mirror the `st` git alias (status -s); omz muscle memory
 
       # Cross-platform clipboard: native on macOS, xclip under X11. Both commented
       # out — cfg is macOS-only now, so the native pbcopy/pbpaste are used directly
