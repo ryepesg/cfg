@@ -34,7 +34,7 @@ outer.right = 8
 # 'secondary' = the external. Array = ordered fallback: external when docked,
 # else 'main' (the built-in) when undocked, so nothing is orphaned.
 #   Laptop  (numbers): 1 Primary work  2 Project/2nd context  3 Scratch  (4-5 spare)
-#   External (letters): C Comms  N Notes  A Agenda  I Intelligence  M Media  P Preview  B Browser/research
+#   External (letters): C Comms  N Notes  A Agenda  I Intelligence  M Media  P Preview  B Browser/research  W Work browser
 [workspace-to-monitor-force-assignment]
 1 = 'built-in'
 2 = 'built-in'
@@ -48,6 +48,7 @@ I = ['secondary', 'main']
 M = ['secondary', 'main']
 N = ['secondary', 'main']
 P = ['secondary', 'main']
+W = ['secondary', 'main']
 
 # alt = the Option (⌥) key
 [mode.main.binding]
@@ -88,6 +89,7 @@ alt-i = 'workspace I'   # intelligence
 alt-m = 'workspace M'   # media
 alt-p = 'workspace P'   # preview
 alt-b = 'workspace B'   # browser / research: Brave
+alt-w = 'workspace W'   # work browser: Chrome
 
 # Move focused window to workspace (same number/letter mnemonic)
 alt-shift-1 = 'move-node-to-workspace 1'
@@ -102,6 +104,7 @@ alt-shift-i = 'move-node-to-workspace I'
 alt-shift-m = 'move-node-to-workspace M'
 alt-shift-p = 'move-node-to-workspace P'
 alt-shift-b = 'move-node-to-workspace B'
+alt-shift-w = 'move-node-to-workspace W'
 
 alt-tab = 'workspace-back-and-forth'
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
