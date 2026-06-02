@@ -20,7 +20,7 @@
 
 {
   imports = [
-    ./zsh # canonical cross-machine zsh (path-only Spaceship prompt, aliases, history)
+    ./zsh # canonical cross-machine zsh (Starship prompt, aliases, history)
     ./git # programs.git aliases/tools (identity-free; name/email set per-machine)
     ./editors/nvim # neovim (withRuby / withPython3 off)
   ];
@@ -37,7 +37,7 @@
 
     # system info
     htop
-    pfetch
+    fastfetch # system-info logo shown on shell start by the zsh module
 
     # docs
     tldr
@@ -51,15 +51,11 @@
 
     # development
     git
-    just
 
     # shell ergonomics
     coreutils
     tree
     pstree
-    nushell
-    zellij
-    grml-zsh-config
 
     # files
     fd
@@ -71,11 +67,7 @@
     file
     bat
     lf
-    nnn
     sd
-    most
-    mprocs
-    fasd
 
     # formats
     jq
@@ -89,9 +81,11 @@
     age
 
     # networking
-    nmap
+    # nmap deliberately NOT here — pentest tooling is too opinionated for this
+    # shared baseline (corporate machines import it). Install ad-hoc where needed.
     dnsutils # dig, host, nslookup (single bind bundle, avoids man-page collision)
-    wget
+    # wget excluded: curl ships with macOS and covers everyday fetching; add wget
+    # per-machine only if recursive/mirroring downloads are actually needed.
     iproute2mac # ip addr, ip link, ... (the macOS shim)
   ];
 }
