@@ -7,7 +7,7 @@ mkShell {
   buildInputs = [
     git
     just
-    nixpkgs-fmt
+    nixfmt # RFC 166-style formatter (nixfmt-rfc-style); replaces nixpkgs-fmt
     #nix-linter
     manix
     nix-tree

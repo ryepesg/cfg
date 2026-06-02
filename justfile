@@ -30,7 +30,7 @@ size:
 
 format:
   @echo "[INFO]: Formating all nix files..."
-  find . -iname '*.nix' -exec nixpkgs-fmt {} \;
+  find . -iname '*.nix' -exec nixfmt {} \;
 
 lint:
   @echo "[INFO]: Linting all nix files..."

@@ -7,8 +7,9 @@
 # Written in the current home-manager API (initContent / autosuggestion.enable /
 # syntaxHighlighting.enable) so it evaluates on BOTH home-manager release-26.05
 # (conf) and unstable (cfg). shellAliases are safe to share even when a target
-# is missing on one host (an alias only fails when invoked, not at startup);
-# startup-time evals (zoxide/direnv) are guarded with `command -v`.
+# is missing on one host (an alias only fails when invoked, not at startup).
+# zoxide / direnv / fzf are wired via their native home-manager modules (which
+# add the startup hooks), not hand-written `command -v … && eval` lines.
 #
 # Deliberately low-opinion so it's safe to import on any machine: the prompt is
 # Starship (HM-native, fast, cross-shell) trimmed to directory + git; completion
@@ -71,6 +72,19 @@
 
     initContent = ''
       export PATH=$PATH:~/.local/bin
+
+      # Completion UX. `enableCompletion` runs compinit but leaves bare zsh
+      # defaults; these restore the essentials lost when grml/oh-my-zsh went away
+      # (menu, case-insensitive + partial matching, colours, grouping). zstyles
+      # are consulted at completion time, so order vs compinit doesn't matter.
+      # (For an fzf-driven TAB menu instead, add the fzf-tab plugin.)
+      command -v dircolors >/dev/null && eval "$(dircolors -b)" # populate LS_COLORS (colours completion + eza)
+      zstyle ':completion:*' menu select                                      # arrow-key selectable menu
+      zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'l:|=* r:|=*' # case-insensitive + partial
+      zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"              # colourise the candidate list
+      zstyle ':completion:*' group-name '''                                   # group matches by category
+      zstyle ':completion:*:descriptions' format '%B%F{blue}%d%f%b'           # category headers
+      setopt COMPLETE_IN_WORD ALWAYS_TO_END                                   # complete mid-word, cursor to end
 
       # Ctrl-R is left to fzf's fuzzy history widget (programs.fzf below). A
       # manual `bindkey '^R' history-incremental-search-backward` used to live

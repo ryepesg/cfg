@@ -49,7 +49,9 @@
     btop
 
     # spelling
-    diction
+    # diction  # GNU style/grammar checker (1990s-era). Modern alternative is
+    #          # Vale (vale.sh) — a configurable prose linter with style rules.
+    #          # Left commented; re-enable diction or add `vale` if wanted.
     aspell
     aspellDicts.es
     aspellDicts.en

@@ -44,7 +44,7 @@
       };
 
       color.ui = true;
-      credential.helper = "cache --timeout=3600";
+      credential.helper = "osxkeychain"; # persist creds in the macOS Keychain (was in-memory `cache`)
       diff.tool = "vimdiff";
       difftool.prompt = false;
       merge.tool = "vimdiff";
@@ -55,7 +55,7 @@
       http.postBuffer = 524288000;
       init.defaultBranch = "main";
       pull.ff = "only";
-      push.default = "matching";
+      push.default = "simple"; # push only the current branch to its upstream (git ≥2.0 default; was "matching")
     };
   };
 }
