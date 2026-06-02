@@ -40,6 +40,8 @@
       darwinModules.systemDefaults = ./hosts/darwin/system-defaults.nix;
       darwinModules.jankyborders = ./hosts/darwin/jankyborders.nix;
       homeManagerModules.zsh = ./users/programs/zsh/default.nix;
+      homeManagerModules.git = ./users/programs/git;
+      homeManagerModules.nvim = ./users/programs/editors/nvim;
 
       # The shared home baseline — CLI package set + the canonical program
       # modules (zsh / git / neovim). Machine flakes import this and add only a
