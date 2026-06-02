@@ -62,8 +62,8 @@
     fd
     ripgrep
     gnugrep
-    fzf
-    zoxide
+    # fzf + zoxide are installed by their home-manager program modules (see the
+    # zsh module: programs.fzf.enable / programs.zoxide.enable) — not listed here.
     eza
     file
     bat

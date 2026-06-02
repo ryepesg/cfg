@@ -71,20 +71,31 @@
       # home-manager and trimmed to directory + git (see its settings). A
       # startup system-info logo is a per-machine opt-in, not shared here.
 
-      command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
-
       # A fresh interactive shell shouldn't inherit a parent's direnv state (e.g.
       # the terminal/WM was launched from inside a direnv'd dir). Without this,
       # direnv's first hook sees the inherited DIRENV_DIR, notices we aren't in
-      # it, and prints a spurious "direnv: unloading". Drop the bookkeeping so it
-      # starts clean (a real direnv dir just re-loads, cached & instant).
+      # it, and prints a spurious "direnv: unloading". Drop that bookkeeping so a
+      # new shell starts clean (a real direnv dir just re-loads, cached/instant).
+      # MUST run before the direnv hook — that hook now comes from
+      # programs.direnv.enableZshIntegration (below), which home-manager appends
+      # AFTER this initContent, so the ordering is preserved.
       unset DIRENV_DIFF DIRENV_DIR DIRENV_FILE DIRENV_WATCHES
-      command -v direnv >/dev/null && eval "$(direnv hook zsh)"
     '';
   };
 
   programs.command-not-found.enable = false;
-  programs.fzf.enableZshIntegration = true;
+
+  # Shell-integration tools, owned fully by home-manager: enabling each installs
+  # the binary AND adds its zsh hook (enableZshIntegration defaults true), so we
+  # neither list them as packages nor hand-write `eval "$(… init/hook zsh)"`.
+  # direnv's hook is appended after the initContent above, i.e. after the
+  # DIRENV_* unset, which is exactly the ordering that suppresses "unloading".
+  programs.fzf.enable = true;
+  programs.zoxide.enable = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
   # Prompt. Starship (fast, cross-shell, visually neutral). home-manager installs
   # the package + zsh integration (enableZshIntegration defaults true).
