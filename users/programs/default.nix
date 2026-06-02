@@ -25,9 +25,10 @@
     ./editors/nvim # neovim (withRuby / withPython3 off)
   ];
 
-  # Classic vim kept available next to neovim, with the shared .vimrc. (editors/
-  # provides neovim only, so the vim binary + vimrc are added here, not via the
-  # ./vim module — importing that too would double-define programs.neovim.)
+  # The shared .vimrc, applied to whatever vim is present. macOS ships a `vim`
+  # binary, so we don't install one here (editors/ provides neovim only —
+  # importing ./vim too would double-define programs.neovim). Uncomment `vim` in
+  # the package list below for a machine without a system vim.
   home.file.".vimrc".source = ./vim/vimrc;
 
   # tealdeer: fast Rust `tldr` client (provides the `tldr` command), managed via
@@ -43,18 +44,20 @@
   # The portable CLI baseline. Add a tool here once and it lands on every machine
   # that imports this module. Nothing secret or machine-specific belongs in here.
   home.packages = with pkgs; [
-    vim
+    # vim — macOS ships a system vim; the shared .vimrc above applies to it.
 
     # system info
     btop
 
-    # spelling
+    # spelling — standalone CLI spell checker, NOT editor-coupled (vim/neovim use
+    # their own built-in `:set spell`). Personal-preference + unclear usage, so
+    # commented out of the shared baseline; re-enable here, or add to a machine's
+    # conf, if actually used.
     # diction  # GNU style/grammar checker (1990s-era). Modern alternative is
     #          # Vale (vale.sh) — a configurable prose linter with style rules.
-    #          # Left commented; re-enable diction or add `vale` if wanted.
-    aspell
-    aspellDicts.es
-    aspellDicts.en
+    # aspell
+    # aspellDicts.es
+    # aspellDicts.en
 
     # development
     git
@@ -71,7 +74,7 @@
     # fzf + zoxide are installed by their home-manager program modules (see the
     # zsh module: programs.fzf.enable / programs.zoxide.enable) — not listed here.
     eza
-    file
+    # file — macOS ships /usr/bin/file
     bat
     lf
     sd
@@ -88,9 +91,11 @@
     #age
 
     # networking
-    dnsutils # dig, host, nslookup (single bind bundle, avoids man-page collision)
+    # dnsutils # dig/host/nslookup — macOS ships these, so commented out
     # wget excluded: curl ships with macOS and covers everyday fetching; add wget
     # per-machine only if recursive/mirroring downloads are actually needed.
-    iproute2mac # ip addr, ip link, ... (the macOS shim)
+    # iproute2mac kept on purpose: macOS has ifconfig/netstat/route but NOT `ip`;
+    # this shim provides `ip addr`/`ip link` for Linux parity.
+    iproute2mac
   ];
 }
