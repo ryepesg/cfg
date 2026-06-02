@@ -170,6 +170,11 @@ run = 'move-node-to-workspace A'
 if.app-name-regex-substring = 'logseq'
 run = 'move-node-to-workspace N'
 
+# P Preview / PDF: Preview.
+[[on-window-detected]]
+if.app-name-regex-substring = 'preview'
+run = 'move-node-to-workspace P'
+
 # I Intelligence: the Claude PWA. Install it standalone (Edge/Brave -> Apps ->
 # "Install this site as an app") so it reports the app-name 'Claude' rather than
 # the browser — same standalone-PWA trick as Gmail/Calendar above. Until then this
