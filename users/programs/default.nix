@@ -23,6 +23,7 @@
     ./zsh # canonical cross-machine zsh (Starship prompt, aliases, history)
     ./git # programs.git aliases/tools (identity-free; name/email set per-machine)
     ./editors/nvim # neovim (withRuby / withPython3 off)
+    ./ghostty # Ghostty terminal settings (programs.ghostty, package = null)
   ];
 
   # The shared .vimrc, applied to whatever vim is present. macOS ships a `vim`
