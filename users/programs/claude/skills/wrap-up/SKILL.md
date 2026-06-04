@@ -1,42 +1,49 @@
 ---
 name: wrap-up
-description: End-of-session wrap-up before closing. Scans the conversation for durable facts to save to memory, surfaces remaining TODOs, and appends a dated session summary to the right place in a Logseq graph (topic page when one fits, else today's journal). Invoke when the user asks to wrap up, close out, "anything to capture", or end the session.
+description: End-of-session wrap-up before closing a context window. Captures only what would cost future-you time if lost — pending actions still owed, and insights worth consolidating into a Logseq graph. Does not replay what was done. Invoke when the user asks to wrap up, close out, "anything to capture", or end the session.
 ---
 
 # Session wrap-up
 
-End-of-session routine: persist what's durable, surface what's unfinished, and log a summary to a Logseq knowledge graph. Run the steps in order, then give a short report and an explicit "ready to close" verdict. Do real work — don't just describe what you would do.
+The point of this skill is peace of mind before closing a context window: when a fresh session opens, nothing that would otherwise be rediscovered or redone should be lost. It is **not** a session log. Do not replay or summarize what was done this session — that is noise the user does not want.
+
+Apply one filter to everything below:
+
+> Would losing this cost future-me time — because work is unfinished, or because something learned would have to be rediscovered?
+
+If it doesn't pass that test, leave it out. Default to capturing little; when there's nothing worth capturing, say so plainly instead of manufacturing entries. Do real work — actually write the files, don't describe what you would do.
 
 ## Prerequisites
 
-- **Memory** (step 1) assumes a file-based memory at `~/.claude/memory/` with a `MEMORY.md` index. If the project doesn't use one, skip step 1 and say so.
-- **Logseq** (step 3) needs the graph location in the `LOGSEQ_GRAPH` environment variable (absolute path to the graph's root — the dir containing `pages/` and `journals/`). If it's unset and you can't locate a graph, skip step 3 and report that instead of guessing a path.
+- **Logseq** needs the graph root in the `LOGSEQ_GRAPH` environment variable (absolute path to the dir containing `pages/` and `journals/`). If it's unset and you can't locate the graph, report that and skip the Logseq writes rather than guessing a path.
+- **Memory** (step 3) assumes a file-based memory at `~/.claude/memory/` with a `MEMORY.md` index. If the project doesn't use one, skip it and say so.
 
-## 1. Capture durable facts to memory
+## 1. Pending actions
 
-Review the whole conversation for facts worth persisting to `~/.claude/memory/`. For each:
-- Check existing memories first (read `MEMORY.md`); **update** the closest match rather than duplicating, or delete one that this session proved wrong.
-- Only save what's durable and non-obvious — not things derivable from the repo, git history, or project docs, and not conversation-only detail.
-- Link related memories with `[[name]]`, and add/maintain the one-line pointer in `MEMORY.md`.
+Find the concrete loose ends this session leaves behind: unfinished work, steps deferred ("later", "next time", "on the other machine"), uncommitted/unpushed changes, cleanup owed, things blocked on something external. For each, ask whether future-you actually needs it — drop the trivially obvious.
 
-If nothing qualifies, say so explicitly rather than inventing entries.
+Persist the real ones into the Logseq graph as native task bullets, so they survive the close and stay queryable:
+- `- LATER <action>` for things to pick up eventually, `- TODO <action>` for nearer-term. Match how the target page already uses these markers.
+- Put each under the most relevant topic page (routing in step 2); use today's `journals/YYYY_MM_DD.md` only when nothing fits.
+- Don't duplicate a task already written in the graph.
 
-## 2. Surface remaining TODOs
+Call out separately anything that blocks closing right now (e.g. unpushed work that would be lost).
 
-List concrete loose ends from this session: uncommitted/unpushed changes, steps deferred to another machine, cleanup left behind, anything the user said "later" about. Mark which (if any) block closing. Pull in still-relevant open items from memory if this session touched them.
+## 2. Insights worth consolidating
 
-## 3. Append a session summary to the Logseq graph
+Capture durable things learned this session that future-you would otherwise have to rediscover: a decision and why, a non-obvious how/why, a gotcha, a resolved unknown. Not activity ("did X, then Y"), and not anything already recorded in the repo, git history, or project docs.
 
-Graph root: `$LOGSEQ_GRAPH` (see Prerequisites).
-- Topic pages: `pages/<title>.md`. Logseq encodes namespace separators in filenames: `/`→`%2F`, `|`→`%7C`, spaces kept (page `tool/AeroSpace` → `pages/tool%2FAeroSpace.md`). Inside file content use real slashes in `[[links]]`.
-- Dated notes: `journals/YYYY_MM_DD.md` (today's date).
+Write these into the Logseq graph:
+- Graph root: `$LOGSEQ_GRAPH`. Topic pages live at `pages/<title>.md`; Logseq encodes namespace separators in filenames (`/`→`%2F`, `|`→`%7C`, spaces kept — page `tool/AeroSpace` → `pages/tool%2FAeroSpace.md`). Inside file content use real slashes in `[[links]]`.
+- Routing: identify the insight's topic, search `pages/` for a matching slug case-insensitively (`find "$LOGSEQ_GRAPH/pages" -iname '*erospace*'`). Append to the most specific page that fits, under a dated bullet. Fall back to today's `journals/` file only if no page fits. Editing the graph while Logseq is open is fine.
+- Match the surrounding note style — bullets, indentation, the user's voice. No filler, no bold-label headers, sparse emoji, no AI tells.
 
-**Routing (topic page when one fits, else journal):**
-1. Identify the session's primary topic. Search `pages/` for a matching slug case-insensitively (e.g. `find "$LOGSEQ_GRAPH/pages" -iname '*erospace*'`). Editing the graph while Logseq is open is fine — no need to warn about re-indexing.
-2. If a clearly relevant page exists, append the summary there under a dated heading/bullet. If two or more topics fit, prefer the most specific page; if none fits, fall back to today's `journals/` file (create it if absent).
-3. Write a tight summary: what was decided/done, key file paths or commands, and any `[[wikilinks]]` to related pages. Match the surrounding note style (bullets, indentation) and the user's writing style — no filler, no bold-label headers, sparse emoji.
-4. Tell the user exactly which file you wrote to.
+Tell the user exactly which file(s) you wrote to.
+
+## 3. Memory (for Claude, secondary)
+
+Briefly check whether anything this session changes what Claude should carry across future sessions — a durable preference, a project constraint, a corrected assumption. If so, update the closest existing memory in `~/.claude/memory/` rather than duplicating, keep the `MEMORY.md` pointer current, and delete any memory this session proved wrong. This is usually a no-op; don't force it.
 
 ## 4. Verdict
 
-State plainly whether the user is ready to close, and call out anything that should be handled first.
+A few lines, no more: what you captured and where, then a plain ready-to-close / not-yet verdict, calling out anything that should be handled first.
