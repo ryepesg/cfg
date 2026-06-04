@@ -84,7 +84,7 @@ alt-4 = 'workspace 4'   # spare (laptop)
 alt-5 = 'workspace 5'   # spare (laptop)
 alt-c = 'workspace C'   # comms: Slack + email
 alt-n = 'workspace N'   # notes: Logseq
-alt-a = 'workspace A'   # agenda: calendar
+alt-a = 'workspace A'   # agenda: calendar + tasks
 alt-i = 'workspace I'   # intelligence
 alt-m = 'workspace M'   # media
 alt-p = 'workspace P'   # preview
@@ -163,6 +163,11 @@ run = 'move-node-to-workspace C'
 # A Agenda: the Google Calendar PWA.
 [[on-window-detected]]
 if.app-name-regex-substring = 'calendar'
+run = 'move-node-to-workspace A'
+
+# A Agenda: also hosts the Google Tasks PWA. Together represent a "plan my day" pair
+[[on-window-detected]]
+if.app-name-regex-substring = 'tasks'
 run = 'move-node-to-workspace A'
 
 # N Notes: Logseq.
