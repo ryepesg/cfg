@@ -92,6 +92,23 @@
       zstyle ':completion:*:descriptions' format '%B%F{blue}%d%f%b'           # category headers
       setopt COMPLETE_IN_WORD ALWAYS_TO_END                                   # complete mid-word, cursor to end
 
+      # Prefix history search on Up/Down. Type a prefix (e.g. `vim`) and press
+      # Up to cycle through ONLY the history entries beginning with what's typed
+      # (the match is the buffer up to the cursor). This is what oh-my-zsh gave
+      # us via lib/key-bindings.zsh; it was lost when omz was removed, leaving
+      # zsh's default up-line-or-history (plain chronological walk). The
+      # *-beginning-search widgets also still move within a multi-line buffer.
+      autoload -U up-line-or-beginning-search down-line-or-beginning-search
+      zle -N up-line-or-beginning-search
+      zle -N down-line-or-beginning-search
+      bindkey '^[[A' up-line-or-beginning-search   # Up   — normal cursor mode
+      bindkey '^[OA' up-line-or-beginning-search   # Up   — application mode
+      bindkey '^[[B' down-line-or-beginning-search # Down — normal cursor mode
+      bindkey '^[OB' down-line-or-beginning-search # Down — application mode
+      # terminfo codes too, for terminals that report non-standard sequences
+      [[ -n ''${terminfo[kcuu1]} ]] && bindkey "''${terminfo[kcuu1]}" up-line-or-beginning-search
+      [[ -n ''${terminfo[kcud1]} ]] && bindkey "''${terminfo[kcud1]}" down-line-or-beginning-search
+
       # Ctrl-R is left to fzf's fuzzy history widget (programs.fzf below). A
       # manual `bindkey '^R' history-incremental-search-backward` used to live
       # here and clobbered it — removed so fzf owns reverse history search.
