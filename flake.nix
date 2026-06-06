@@ -42,6 +42,7 @@
       homeManagerModules.zsh = ./users/programs/zsh/default.nix;
       homeManagerModules.git = ./users/programs/git;
       homeManagerModules.nvim = ./users/programs/editors/nvim;
+      homeManagerModules.claude = ./users/programs/claude;
 
       # The shared home baseline — CLI package set + the canonical program
       # modules (zsh / git / neovim). Machine flakes import this and add only a
