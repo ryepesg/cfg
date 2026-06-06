@@ -1,0 +1,9 @@
+# Portable Claude Code tooling rules
+
+Machine-agnostic, tool-level rules. Keep them generic and portable.
+
+## Tooling Conventions
+
+Prefer the Read/Edit tools over Bash `cat`/`sed` for file work. Don't run non-terminating or stdin-blocking commands in the foreground (they get auto-backgrounded into stuck tasks). For builds, activations, and other steps where success matters, run the verification as its own command and show the real exit code — never infer success from an `&&`-chained `echo`, since `|`/`&&` report the *last* command's status, not the one you care about.
+
+**GNU coreutils are on PATH ahead of BSD** (installed unprefixed by `cfg`, for cross-platform GNU parity). `stat`, `date`, `readlink`, `du`, `ln`, `sed` etc. are GNU, not BSD. Use GNU syntax (`stat -c '%s'`, `date -d`, `readlink -f`, `sed -r`) — not BSD (`stat -f`, `date -r`, `sed -E`). Don't reach for BSD flags just because the platform is darwin. If you genuinely need a BSD original, call it by absolute path: `/usr/bin/stat -f`, `/bin/ln`.
