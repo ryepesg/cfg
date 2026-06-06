@@ -51,7 +51,8 @@
       mv = "/bin/mv -i";
       cp = "/bin/cp -i";
       rm = "rm -i";
-      ls = "eza";
+      # not mapping ls to eza to avoid claude getting confused, use other aliases like l
+      # ls = "eza";
       # ls-family shorthands carried over from oh-my-zsh (dropped — see header),
       # remapped to eza. NB: eza has no `-A`; its `-a` already hides ./.. like
       # `ls -A`, and `-h` adds a header row (eza sizes are human-readable anyway).
