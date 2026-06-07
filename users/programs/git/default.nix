@@ -3,7 +3,7 @@
 # Shared, identity-free git config. Lives in the PUBLIC cfg library, so it holds
 # only portable settings (aliases, tools, defaults) — never user.name/user.email.
 # Each machine sets its own identity via programs.git.settings.user in its
-# private flake (e.g. conf, or the machine template). settings merges across
+# private flake (e.g. via the machine template). settings merges across
 # modules, so the identity attrs land alongside these.
 {
   # delta: syntax-highlighted, readable git diffs. Installs the `delta` package

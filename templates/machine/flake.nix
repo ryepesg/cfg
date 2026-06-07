@@ -81,9 +81,9 @@
               home.file.".config/aerospace/aerospace.toml".source =
                 config.lib.file.mkOutOfStoreSymlink
                   "${config.home.homeDirectory}/cfg/users/programs/aerospace/aerospace.toml";
-              home.file.".claude/skills/wrap-up/SKILL.md".source =
-                config.lib.file.mkOutOfStoreSymlink
-                  "${config.home.homeDirectory}/cfg/users/programs/claude/skills/wrap-up/SKILL.md";
+              # Claude rules + skills are wired by cfg's homeManagerModules.default
+              # (imported above) — every skill folder in cfg/users/programs/claude/
+              # skills is symlinked automatically, so nothing per-skill is needed here.
             };
           }
         ];

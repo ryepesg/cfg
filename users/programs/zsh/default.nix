@@ -6,7 +6,7 @@
 #
 # Written in the current home-manager API (initContent / autosuggestion.enable /
 # syntaxHighlighting.enable) so it evaluates on BOTH home-manager release-26.05
-# (conf) and unstable (cfg). shellAliases are safe to share even when a target
+# and unstable (cfg). shellAliases are safe to share even when a target
 # is missing on one host (an alias only fails when invoked, not at startup).
 # zoxide / direnv / fzf are wired via their native home-manager modules (which
 # add the startup hooks), not hand-written `command -v … && eval` lines.
@@ -24,8 +24,8 @@
 #   - grml-zsh-config deliberately NOT adopted. It's an all-or-nothing zshrc
 #     that clashes with Starship (prompt) and double-runs compinit/zstyles, and
 #     duplicates what we set natively — net redundant + conflict-prone. (It also
-#     ships an `l` alias, but it was never sourced here.) See logseq
-#     `cs/os/Nix/conf and cfg` for the full evaluation.
+#     ships an `l` alias, but it was never sourced here.) See the personal
+#     notes on the config split for the full evaluation.
 
 { config, lib, pkgs, ... }:
 

@@ -8,7 +8,7 @@
 # (secrets, Homebrew casks / system settings, machine-only packages, the `drs`
 # alias, live-edited dotfile symlinks).
 #
-# Rules for what may live here (see logseq `cs/os/Nix/conf and cfg`):
+# Rules for what may live here (see the personal notes on the config split):
 #   - non-secret AND useful on more than one machine -> belongs here,
 #   - secret / machine-or-system-specific -> stays in the machine's private flake.
 #
@@ -54,7 +54,7 @@
     # spelling — standalone CLI spell checker, NOT editor-coupled (vim/neovim use
     # their own built-in `:set spell`). Personal-preference + unclear usage, so
     # commented out of the shared baseline; re-enable here, or add to a machine's
-    # conf, if actually used.
+    # private layer, if actually used.
     # diction  # GNU style/grammar checker (1990s-era). Modern alternative is
     #          # Vale (vale.sh) — a configurable prose linter with style rules.
     # aspell

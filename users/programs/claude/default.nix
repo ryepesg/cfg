@@ -1,33 +1,57 @@
 # users/programs/claude/default.nix
 #
 # Shared Claude Code wiring, imported by homeManagerModules.default so it reaches
-# EVERY machine through the public cfg input alone — including machines that can't
-# clone private repos (conf / claude-config never land there). Two pieces:
+# EVERY machine through this public library alone — including machines restricted
+# to public sources only (the private machine layers never land there). Three pieces:
 #
 #   1. A live symlink to the portable rules (rules.md) in this repo.
-#   2. An idempotent guarantee that ~/.claude/CLAUDE.md imports those rules via
-#      Claude Code's `@`-import. The personal CLAUDE.md lives in the private
-#      claude-config repo and is absent on private-repo-restricted machines, so
-#      cfg ensures the single import line itself (creating a minimal CLAUDE.md if
-#      none exists). Personal/private content stays out of here.
+#   2. A live symlink for EVERY skill folder under ./skills — enumerated at eval
+#      time, so dropping a new ./skills/<name> here propagates it to all machines
+#      on the next rebuild, with no per-skill wiring. Each link targets the live
+#      checkout path, so skill edits apply without a rebuild.
+#   3. An idempotent guarantee that ~/.claude/CLAUDE.md imports the rules via
+#      Claude Code's `@`-import. The personal CLAUDE.md lives in a private personal
+#      config layer and is absent on public-only machines, so this library ensures
+#      the single import line itself (creating a minimal CLAUDE.md if none exists).
+#      Personal/private content stays out of here.
 #
 # CONFIG ONLY — this does NOT install Claude Code (no package/cask/npm). The tool
-# is provided per-machine by other means; cfg just wires its config files. The
+# is provided per-machine by other means; this only wires its config files. The
 # activation uses only bash + coreutils (already in every machine's closure), so
 # importing this module adds no new packages.
+#
+# Skills placed here are PUBLIC and reach every machine. Keep them generic; a
+# private/personal skill belongs in a private machine layer, wired there separately.
+# A skill that needs runtime state (e.g. /wrap-up reads $LOGSEQ_GRAPH) only fully
+# works on machines where that state exists — the symlink is harmless either way.
 
 { config, lib, pkgs, ... }:
 
 let
   claudeDir = "${config.home.homeDirectory}/.claude";
-  # mkOutOfStoreSymlink → live file, edits picked up without a rebuild. Requires
-  # ~/cfg cloned at this home path on every machine (same assumption as the other
-  # shared dotfile symlinks).
-  rulesSrc = "${config.home.homeDirectory}/cfg/users/programs/claude/rules.md";
+  cfgClaude = "${config.home.homeDirectory}/cfg/users/programs/claude";
+  rulesSrc = "${cfgClaude}/rules.md";
+
+  # Skill folder names, read from the store copy of ./skills at eval time. Each
+  # symlink points at the LIVE ~/cfg path (not the store), so edits and newly
+  # added skills are picked up without a rebuild.
+  skillNames = builtins.attrNames
+    (lib.filterAttrs (_name: type: type == "directory")
+      (builtins.readDir ./skills));
+
+  skillLinks = builtins.listToAttrs (map
+    (name: {
+      name = ".claude/skills/${name}";
+      value.source =
+        config.lib.file.mkOutOfStoreSymlink "${cfgClaude}/skills/${name}";
+    })
+    skillNames);
 in
 {
-  home.file.".claude/cfg-rules.md".source =
-    config.lib.file.mkOutOfStoreSymlink rulesSrc;
+  home.file = skillLinks // {
+    ".claude/cfg-rules.md".source =
+      config.lib.file.mkOutOfStoreSymlink rulesSrc;
+  };
 
   # bash-builtin check (no gnugrep dep): read the file with $(< …) and substring-
   # match, then append only if the import line is absent. The mutating append is
