@@ -63,6 +63,7 @@
 
     # development
     git
+    python3Packages.ipython
 
     # shell ergonomics
     coreutils
