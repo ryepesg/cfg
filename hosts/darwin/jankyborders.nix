@@ -3,11 +3,6 @@
 #  window (AeroSpace has no native border). Non-secret and portable; consumed by
 #  machine flakes via `inputs.cfg.darwinModules.jankyborders`.
 #
-#  flake.nix
-#   └─ ./hosts/darwin
-#       ├─ ./system-defaults.nix
-#       └─ ./jankyborders.nix *
-#
 
 { ... }:
 

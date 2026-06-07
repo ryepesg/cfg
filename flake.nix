@@ -40,6 +40,7 @@
       darwinModules.systemDefaults = ./hosts/darwin/system-defaults.nix;
       darwinModules.jankyborders = ./hosts/darwin/jankyborders.nix;
       darwinModules.homebrew = ./hosts/darwin/homebrew.nix;
+      darwinModules.base = ./hosts/darwin/base.nix;
       homeManagerModules.zsh = ./users/programs/zsh/default.nix;
       homeManagerModules.git = ./users/programs/git;
       homeManagerModules.nvim = ./users/programs/editors/nvim;

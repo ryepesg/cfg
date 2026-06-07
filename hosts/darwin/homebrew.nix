@@ -1,16 +1,8 @@
 #
-#  Shared macOS Homebrew *policy* — the portable onActivation behaviour wanted
-#  identically on every laptop. Consumed by machine flakes via
-#  `inputs.cfg.darwinModules.homebrew`. NOTE: only the policy lives here; the
-#  per-machine `casks`/`brews`/`taps` lists stay in the private machine layer
-#  (they differ per machine, `cleanup = "zap"` uninstalls anything not listed,
-#  and the app inventory must not be published in this public repo).
-#
-#  flake.nix
-#   └─ ./hosts/darwin
-#       ├─ ./system-defaults.nix
-#       ├─ ./jankyborders.nix
-#       └─ ./homebrew.nix *
+#  Shared macOS Homebrew *policy only* — the portable onActivation behaviour
+#  wanted identically on every laptop. Consumed by machine flakes via
+#  `inputs.cfg.darwinModules.homebrew`. No taps/brews/casks lists here; those
+#  are declared per-machine.
 #
 
 { ... }:

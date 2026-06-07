@@ -6,11 +6,6 @@
 #  Keep this free of host-specific / secret settings (those stay in each
 #  configuration.nix: hostname, casks, activationScripts, stateVersion).
 #
-#  flake.nix
-#   └─ ./hosts/darwin
-#       ├─ ./configuration.nix
-#       └─ ./system-defaults.nix *
-#
 
 { ... }:
 
