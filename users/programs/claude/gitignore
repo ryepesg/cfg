@@ -1,4 +1,4 @@
-# ~/.claude/.gitignore — allowlist for the Claude Code config dir.
+# Managed by nix (cfg/users/programs/claude/gitignore) — do not edit ~/.claude/.gitignore by hand; edit the cfg source and rebuild.
 #
 # Delivered by users/programs/claude/default.nix as a REAL file (copied on
 # activation, NOT symlinked: git refuses to read a symlinked .gitignore — it
