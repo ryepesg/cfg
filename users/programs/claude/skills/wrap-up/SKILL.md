@@ -34,7 +34,7 @@ Call out separately anything that blocks closing right now (e.g. unpushed work t
 Capture durable things learned this session that future-you would otherwise have to rediscover: a decision and why, a non-obvious how/why, a gotcha, a resolved unknown. Not activity ("did X, then Y"), and not anything already recorded in the repo, git history, or project docs.
 
 Write these into the Logseq graph:
-- Graph root: `$LOGSEQ_GRAPH`. Topic pages live at `pages/<title>.md`; Logseq encodes namespace separators in filenames (`/`→`%2F`, `|`→`%7C`, spaces kept — page `tool/AeroSpace` → `pages/tool%2FAeroSpace.md`). Inside file content use real slashes in `[[links]]`.
+- Graph root: `$LOGSEQ_GRAPH`. Topic pages live at `pages/<title>.md`; Logseq encodes namespace separators in filenames (`/`→`___`, `|`→`%7C`, spaces kept — page `tool/AeroSpace` → `pages/tool___AeroSpace.md`). Inside file content use real slashes in `[[links]]`.
 - Routing: identify the insight's topic, search `pages/` for a matching slug case-insensitively (`find "$LOGSEQ_GRAPH/pages" -iname '*erospace*'`). Append to the most specific page that fits, under a dated bullet. Fall back to today's `journals/` file only if no page fits. Editing the graph while Logseq is open is fine.
 - Match the surrounding note style — bullets, indentation, the user's voice. No filler, no bold-label headers, sparse emoji, no AI tells.
 
@@ -44,6 +44,18 @@ Tell the user exactly which file(s) you wrote to.
 
 Briefly check whether anything this session changes what Claude should carry across future sessions — a durable preference, a project constraint, a corrected assumption. If so, update the closest existing memory in `~/.claude/memory/` rather than duplicating, keep the `MEMORY.md` pointer current, and delete any memory this session proved wrong. This is usually a no-op; don't force it.
 
-## 4. Verdict
+## 4. Persist the config repo
 
-A few lines, no more: what you captured and where, then a plain ready-to-close / not-yet verdict, calling out anything that should be handled first.
+The memory written in step 3, plus any CLAUDE.md / settings / rules touched this session, live in a config repo (here `~/.claude`). Where that repo is git-backed **with a remote**, commit and push so the captures survive the close and reach other machines. Where it has no remote — a machine that backs up by other means — skip silently.
+
+- Scope: **only** this config repo (e.g. `~/.claude`). Never commit or push the nix config repos or any project repo — those are the user's to commit by hand.
+- Gate — proceed only if BOTH hold, otherwise skip with no commit and no warning:
+  - it's a work tree: `git -C ~/.claude rev-parse --is-inside-work-tree`
+  - a remote exists: `git -C ~/.claude remote` is non-empty
+- If proceeding: `git -C ~/.claude add -A`, commit a one-liner (e.g. `wrap-up: capture YYYY-MM-DD`), then push. The allowlist `.gitignore` already limits what's tracked.
+- The Logseq graph syncs separately this step does not touch it.
+- Report what was committed/pushed, or that it was skipped because there's no git remote.
+
+## 5. Verdict
+
+A few lines, no more: what you captured and where, whether the config repo was committed/pushed or skipped, then a plain ready-to-close / not-yet verdict, calling out anything that should be handled first.
