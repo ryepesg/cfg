@@ -46,16 +46,15 @@ Briefly check whether anything this session changes what Claude should carry acr
 
 ## 4. Persist the config repo
 
-The memory written in step 3, plus any CLAUDE.md / settings / rules touched this session, live in a config repo (here `~/.claude`). Where that repo is git-backed **with a remote**, commit and push so the captures survive the close and reach other machines. Where it has no remote — a machine that backs up by other means — skip silently.
+The memory written in step 3, plus any CLAUDE.md / settings / rules touched this session, live in a config repo (here `~/.claude`). Persist them so the captures survive the close.
 
 - Scope: **only** this config repo (e.g. `~/.claude`). Never commit or push the nix config repos or any project repo — those are the user's to commit by hand.
-- Gate — proceed only if BOTH hold, otherwise skip with no commit and no warning:
-  - it's a work tree: `git -C ~/.claude rev-parse --is-inside-work-tree`
-  - a remote exists: `git -C ~/.claude remote` is non-empty
-- If proceeding: `git -C ~/.claude add -A`, commit a one-liner (e.g. `wrap-up: capture YYYY-MM-DD`), then push. The allowlist `.gitignore` already limits what's tracked.
-- The Logseq graph syncs separately this step does not touch it.
-- Report what was committed/pushed, or that it was skipped because there's no git remote.
+- Commit gates on it being a work tree alone: if `git -C ~/.claude rev-parse --is-inside-work-tree` is true, `git -C ~/.claude add -A` and commit a one-liner (e.g. `wrap-up: capture YYYY-MM-DD`). The allowlist `.gitignore` already limits what's tracked. Not a work tree → skip silently.
+- Push gates separately on a remote existing: if `git -C ~/.claude remote` is non-empty, push; otherwise stop after the commit.
+- The Logseq graph syncs separately; this step does not touch it.
+
+Assume this works — don't narrate the commit or push.
 
 ## 5. Verdict
 
-A few lines, no more: what you captured and where, whether the config repo was committed/pushed or skipped, then a plain ready-to-close / not-yet verdict, calling out anything that should be handled first.
+A few lines, no more: what you captured and where, then a plain ready-to-close / not-yet verdict, calling out anything that should be handled first.

@@ -14,6 +14,13 @@
 #      config layer and is absent on public-only machines, so this library ensures
 #      the single import line itself (creating a minimal CLAUDE.md if none exists).
 #      Personal/private content stays out of here.
+#   4. A REAL ~/.claude/.gitignore (allowlist), copied from ./gitignore on every
+#      machine. Copied, not symlinked: git refuses to read a symlinked .gitignore
+#      (opens it O_NOFOLLOW), so a symlink would silently ignore nothing and a
+#      local `git add -A` would stage tokens/transcripts. With the real file in
+#      place, any machine — including ones that can't clone the private config
+#      repo — can keep ~/.claude as a safe local-only git repo without duplicating
+#      the ignore rules.
 #
 # CONFIG ONLY — this does NOT install Claude Code (no package/cask/npm). The tool
 # is provided per-machine by other means; this only wires its config files. The
@@ -25,7 +32,12 @@
 # A skill that needs runtime state (e.g. /wrap-up reads $LOGSEQ_GRAPH) only fully
 # works on machines where that state exists — the symlink is harmless either way.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   claudeDir = "${config.home.homeDirectory}/.claude";
@@ -35,39 +47,49 @@ let
   # Skill folder names, read from the store copy of ./skills at eval time. Each
   # symlink points at the LIVE ~/cfg path (not the store), so edits and newly
   # added skills are picked up without a rebuild.
-  skillNames = builtins.attrNames
-    (lib.filterAttrs (_name: type: type == "directory")
-      (builtins.readDir ./skills));
+  skillNames = builtins.attrNames (
+    lib.filterAttrs (_name: type: type == "directory") (builtins.readDir ./skills)
+  );
 
-  skillLinks = builtins.listToAttrs (map
-    (name: {
+  skillLinks = builtins.listToAttrs (
+    map (name: {
       name = ".claude/skills/${name}";
-      value.source =
-        config.lib.file.mkOutOfStoreSymlink "${cfgClaude}/skills/${name}";
-    })
-    skillNames);
+      value.source = config.lib.file.mkOutOfStoreSymlink "${cfgClaude}/skills/${name}";
+    }) skillNames
+  );
 in
 {
   home.file = skillLinks // {
-    ".claude/cfg-rules.md".source =
-      config.lib.file.mkOutOfStoreSymlink rulesSrc;
+    ".claude/cfg-rules.md".source = config.lib.file.mkOutOfStoreSymlink rulesSrc;
   };
 
   # bash-builtin check (no gnugrep dep): read the file with $(< …) and substring-
   # match, then append only if the import line is absent. The mutating append is
   # wrapped in `$DRY_RUN_CMD bash -c '…'` so a dry-run activation only echoes it
   # (the >> redirect stays inside the quoted string and isn't executed).
-  home.activation.claudeRulesImport =
-    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      $DRY_RUN_CMD ${pkgs.coreutils}/bin/mkdir -p "${claudeDir}"
-      $DRY_RUN_CMD ${pkgs.bash}/bin/bash -c '
-        f="$1/CLAUDE.md"; line="@cfg-rules.md"
-        if [ -e "$f" ]; then c="$(< "$f")"; else c=""; fi
-        case "$c" in
-          *"$line"*) : ;;  # already imported — nothing to do
-          *) printf "%s\n" "$line" >> "$f"
-             echo "[claude] added $line import to $f" ;;
-        esac
-      ' _ "${claudeDir}"
-    '';
+  home.activation.claudeRulesImport = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    $DRY_RUN_CMD ${pkgs.coreutils}/bin/mkdir -p "${claudeDir}"
+    $DRY_RUN_CMD ${pkgs.bash}/bin/bash -c '
+      f="$1/CLAUDE.md"; line="@cfg-rules.md"
+      if [ -e "$f" ]; then c="$(< "$f")"; else c=""; fi
+      case "$c" in
+        *"$line"*) : ;;  # already imported — nothing to do
+        *) printf "%s\n" "$line" >> "$f"
+           echo "[claude] added $line import to $f" ;;
+      esac
+    ' _ "${claudeDir}"
+  '';
+
+  # Copy the allowlist .gitignore as a REAL file (git won't follow a symlinked
+  # one). Idempotent: only rewrites when content differs, so rebuilds don't churn.
+  home.activation.claudeGitignore = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    $DRY_RUN_CMD ${pkgs.coreutils}/bin/mkdir -p "${claudeDir}"
+    $DRY_RUN_CMD ${pkgs.bash}/bin/bash -c '
+      src="$1"; dst="$2/.gitignore"
+      if [ ! -e "$dst" ] || ! ${pkgs.coreutils}/bin/cmp -s "$src" "$dst"; then
+        ${pkgs.coreutils}/bin/install -m 0644 "$src" "$dst"
+        echo "[claude] wrote allowlist .gitignore to $dst"
+      fi
+    ' _ "${./gitignore}" "${claudeDir}"
+  '';
 }

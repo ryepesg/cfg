@@ -1,0 +1,23 @@
+# ~/.claude/.gitignore — allowlist for the Claude Code config dir.
+#
+# Delivered by users/programs/claude/default.nix as a REAL file (copied on
+# activation, NOT symlinked: git refuses to read a symlinked .gitignore — it
+# opens with O_NOFOLLOW, so a symlinked one is silently ignored and everything
+# gets staged). Edit here; it re-copies on the next rebuild.
+#
+# Allowlist: ignore everything, then re-include only specific config by exact
+# pattern — never whole subtrees. A file that isn't listed stays untracked. This
+# keeps sessions/, projects/, session-env/, caches, settings.local.json, and the
+# nix-store symlinks (cfg-rules.md, skills/) out of the repo by default.
+#
+# Re-include is by extension, not `dir/**`, so an unrelated file dropped inside an
+# allowlisted dir (e.g. memory/foo.bin) stays ignored.
+*
+!.gitignore
+!CLAUDE.md
+!memory/
+!memory/*.md
+!hooks/
+!hooks/*.py
+!rules/
+!rules/*.md
