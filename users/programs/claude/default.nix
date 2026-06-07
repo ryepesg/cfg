@@ -16,11 +16,9 @@
 #      Personal/private content stays out of here.
 #   4. A REAL ~/.claude/.gitignore (allowlist), copied from ./gitignore on every
 #      machine. Copied, not symlinked: git refuses to read a symlinked .gitignore
-#      (opens it O_NOFOLLOW), so a symlink would silently ignore nothing and a
-#      local `git add -A` would stage tokens/transcripts. With the real file in
-#      place, any machine — including ones that can't clone the private config
-#      repo — can keep ~/.claude as a safe local-only git repo without duplicating
-#      the ignore rules.
+#      (opens it O_NOFOLLOW), so the rules only take effect from a real file. With
+#      it in place, any machine can keep ~/.claude as a local-only git repo using
+#      the same allowlist, without duplicating the rules per machine.
 #
 # CONFIG ONLY — this does NOT install Claude Code (no package/cask/npm). The tool
 # is provided per-machine by other means; this only wires its config files. The
