@@ -84,7 +84,7 @@ in
     $DRY_RUN_CMD ${pkgs.coreutils}/bin/mkdir -p "${claudeDir}"
     $DRY_RUN_CMD ${pkgs.bash}/bin/bash -c '
       src="$1"; dst="$2/.gitignore"
-      if [ ! -e "$dst" ] || ! ${pkgs.coreutils}/bin/cmp -s "$src" "$dst"; then
+      if [ ! -e "$dst" ] || ! ${pkgs.diffutils}/bin/cmp -s "$src" "$dst"; then
         ${pkgs.coreutils}/bin/install -m 0644 "$src" "$dst"
         echo "[claude] wrote allowlist .gitignore to $dst"
       fi
