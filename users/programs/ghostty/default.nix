@@ -44,6 +44,10 @@
       # Scrollback buffer cap. Ghostty has no true-unlimited option; this is a
       # large finite ceiling (bytes — 100 MB, vs the 10 MB default).
       scrollback-limit = 100000000;
+
+      # Left Option acts as Alt so Opt+←/→ and Opt+Backspace do word nav/delete;
+      # right Option stays as-is for composing special characters.
+      macos-option-as-alt = "left";
     };
   };
 }

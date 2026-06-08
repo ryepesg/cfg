@@ -125,7 +125,9 @@ alt-shift-semicolon = 'mode service'
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main']
 f = ['layout floating tiling', 'mode main']
-backspace = ['close-all-windows-but-current', 'mode main']
+# Disabled: backspace is a reflexive text-edit key (delete word). If service
+# mode is entered/lingered in, hitting it would destroy the whole window layout.
+# backspace = ['close-all-windows-but-current', 'mode main']
 
 alt-shift-h = ['join-with left', 'mode main']
 alt-shift-j = ['join-with down', 'mode main']
