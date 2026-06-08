@@ -110,6 +110,14 @@
       [[ -n ''${terminfo[kcuu1]} ]] && bindkey "''${terminfo[kcuu1]}" up-line-or-beginning-search
       [[ -n ''${terminfo[kcud1]} ]] && bindkey "''${terminfo[kcud1]}" down-line-or-beginning-search
 
+      # Ctrl+←/→ → no-op: consume the sequence so it inserts nothing (otherwise the
+      # unbound `;5D`/`;5C` tail self-inserts). Intentional — retraining onto native
+      # macOS word motion (Opt+←/→).
+      noop() {}
+      zle -N noop
+      bindkey '^[[1;5C' noop  # Ctrl+Right
+      bindkey '^[[1;5D' noop  # Ctrl+Left
+
       # Ctrl-R is left to fzf's fuzzy history widget (programs.fzf below). A
       # manual `bindkey '^R' history-incremental-search-backward` used to live
       # here and clobbered it — removed so fzf owns reverse history search.
