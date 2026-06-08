@@ -17,4 +17,6 @@
       extraFlags = [ "--force" ]; # Force non-interactive bundle (needed for the zap cleanup to proceed)
     };
   };
+
+  environment.systemPath = [ "/opt/homebrew/bin" ];
 }
