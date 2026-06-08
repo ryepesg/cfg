@@ -13,6 +13,18 @@
   # (The user shell also gets git via the home baseline's programs.git.)
   environment.systemPackages = with pkgs; [ git ];
 
+  nix = {
+    package = pkgs.nix;
+    gc = {
+      automatic = true; # default interval: weekly, Sun 03:15 (runs on next wake)
+      options = "--delete-older-than 7d";
+    };
+    extraOptions = ''
+      auto-optimise-store = true
+      experimental-features = nix-command flakes
+    '';
+  };
+
   programs.zsh.enable = true; # System-wide zsh (sets up /etc/zshrc, completion, …)
 
   system.keyboard = {
