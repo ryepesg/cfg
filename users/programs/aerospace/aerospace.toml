@@ -141,9 +141,9 @@ alt-shift-l = ['join-with right', 'mode main']
 
 # --- Laptop (numbers) ---
 # WS1 Primary work: terminal (and editor — add a rule once an editor is settled).
-[[on-window-detected]]
-if.app-name-regex-substring = 'ghostty'
-run = 'move-node-to-workspace 1'
+#[[on-window-detected]]
+#if.app-name-regex-substring = 'ghostty'
+#run = 'move-node-to-workspace 1'
 # [[on-window-detected]]
 # if.app-name-regex-substring = 'cursor|visual studio code'
 # run = 'move-node-to-workspace 1'

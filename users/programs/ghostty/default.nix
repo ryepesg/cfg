@@ -17,6 +17,10 @@
     package = null;
 
     settings = {
+      # Bump the default font a touch for readability.
+      font-family = "BlexMono Nerd Font Mono";
+      font-size = 15;
+
       # Exit a windowless Ghostty process instead of leaving it resident.
       # AeroSpace spawns each terminal as its own Ghostty instance via
       # `open -na Ghostty` (the alt-enter binding); there is no "merge into the
