@@ -2,6 +2,10 @@
 
 Machine-agnostic, tool-level rules. Keep them generic and portable.
 
+## Code Comments
+
+Keep comments sparse — the code should be self-explanatory. Comment only the non-obvious: the *why*, a gotcha, or a cross-file coupling. Don't restate what a line already says, and don't write multi-line explanations where one short line (or none) will do.
+
 ## Tooling Conventions
 
 Prefer the Read/Edit tools over Bash `cat`/`sed` for file work. Don't run non-terminating or stdin-blocking commands in the foreground (they get auto-backgrounded into stuck tasks). For builds, activations, and other steps where success matters, run the verification as its own command and show the real exit code — never infer success from an `&&`-chained `echo`, since `|`/`&&` report the *last* command's status, not the one you care about.

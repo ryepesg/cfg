@@ -17,7 +17,6 @@
     package = null;
 
     settings = {
-      # Bump the default font a touch for readability.
       font-family = "BlexMono Nerd Font Mono";
       font-size = 15;
 

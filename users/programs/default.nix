@@ -61,6 +61,9 @@
     # aspellDicts.es
     # aspellDicts.en
 
+    # font for the shared Ghostty config; home-manager links it into ~/Library/Fonts on darwin
+    nerd-fonts.blex-mono
+
     # development
     git
     python3Packages.ipython
