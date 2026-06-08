@@ -25,6 +25,11 @@
     '';
   };
 
+  security.pam.services.sudo_local = {
+    touchIdAuth = true;
+    reattach = true; # makes Touch ID work inside zellij (pam_reattach before pam_tid)
+  };
+
   programs.zsh.enable = true; # System-wide zsh (sets up /etc/zshrc, completion, …)
 
   system.keyboard = {
