@@ -32,6 +32,10 @@
       orientation = "bottom";
       showhidden = true;
       tilesize = 40;
+      show-recents = false; # No auto-injected recent apps; Dock stays pinned + running only
+      # Minimal Dock: pin only System Settings. Every other app shows its icon only
+      # while running (macOS default); Finder is force-pinned by macOS. [] = no pins.
+      persistent-apps = [ "/System/Applications/System Settings.app" ];
       expose-group-apps = true; # Group windows by app in Mission Control (AeroSpace-friendly)
       mru-spaces = false; # Don't auto-rearrange Spaces (keeps AeroSpace workspaces aligned)
     };
