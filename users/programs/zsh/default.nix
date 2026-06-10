@@ -77,7 +77,7 @@
       # pbpaste = "if [ -f /usr/bin/pbpaste ]; then pbpaste; else xclip -selection clipboard -o; fi";
     };
 
-    initContent = ''
+    initContent = lib.mkMerge [ ''
       export PATH=$PATH:~/.local/bin
 
       # Completion UX. `enableCompletion` runs compinit but leaves bare zsh
@@ -159,7 +159,28 @@
       # programs.direnv.enableZshIntegration (below), which home-manager appends
       # AFTER this initContent, so the ordering is preserved.
       unset DIRENV_DIFF DIRENV_DIR DIRENV_FILE DIRENV_WATCHES
-    '';
+    ''
+
+    # Under Claude Code (CLAUDECODE=1), strip aliases that mask a real binary so
+    # the agent hits the genuine tool (no colour codes, pager swaps, or -i hangs).
+    # mkAfter so it runs past HM's shellAliases block, at rc-source time (fires in
+    # the non-interactive shell). $commands[x] is set iff a binary x is on $PATH,
+    # so pure launchers (l/ll/tree/gst/…) are kept.
+    (lib.mkAfter ''
+      if [[ -n $CLAUDECODE ]]; then
+        () {
+          local a
+          for a in ''${(k)aliases}; do
+            (( ''${+commands[$a]} )) && unalias -- "$a"
+          done
+        }
+        # Drop the grep nudge; pin to native BSD grep (no stderr noise, beats a
+        # GNU grep that might sit ahead on $PATH).
+        unfunction grep 2>/dev/null
+        [[ -x /usr/bin/grep ]] && grep() { /usr/bin/grep "$@"; }
+      fi
+    '')
+    ];
   };
 
   # Binaries the aliases/config above depend on, so this module is self-contained
