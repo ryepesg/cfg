@@ -168,6 +168,10 @@
     # so pure launchers (l/ll/tree/gst/…) are kept.
     (lib.mkAfter ''
       if [[ -n $CLAUDECODE ]]; then
+        # Agents emit unquoted globs in flags (grep --include=*.py); zsh's nomatch
+        # aborts those before they run, while bash passes them through. Match bash
+        # for the agent shell only — interactive sessions keep nomatch as a typo net.
+        unsetopt nomatch
         () {
           local a
           for a in ''${(k)aliases}; do
