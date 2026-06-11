@@ -65,7 +65,9 @@ in
   # default renderer prints into normal terminal scrollback, which the terminal
   # reflows (and mangles) on every tiling-WM resize; the alt-screen renderer owns
   # the viewport and repaints cleanly. Env var instead of settings.json because
-  # settings.json is deliberately per-machine and untracked.
+  # settings.json is deliberately per-machine and untracked. Cost: cmd+f only
+  # sees the viewport — search the transcript with ctrl+o then `/` (or `[` to
+  # dump it into native scrollback).
   home.sessionVariables.CLAUDE_CODE_NO_FLICKER = "1";
 
   # CLAUDE_CODE_DISABLE_MOUSE deliberately NOT set: tested and rejected — in the
