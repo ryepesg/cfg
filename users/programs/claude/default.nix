@@ -61,6 +61,17 @@ in
     ".claude/cfg-rules.md".source = config.lib.file.mkOutOfStoreSymlink rulesSrc;
   };
 
+  # Fullscreen (alt-screen) TUI, same as settings.json `tui: "fullscreen"`. The
+  # default renderer prints into normal terminal scrollback, which the terminal
+  # reflows (and mangles) on every tiling-WM resize; the alt-screen renderer owns
+  # the viewport and repaints cleanly. Env var instead of settings.json because
+  # settings.json is deliberately per-machine and untracked.
+  home.sessionVariables.CLAUDE_CODE_NO_FLICKER = "1";
+
+  # CLAUDE_CODE_DISABLE_MOUSE deliberately NOT set: tested and rejected — in the
+  # alt-screen, trackpad scroll degrades to arrow keys (transcript won't scroll),
+  # and the app's own drag-selection covers copying fine.
+
   # bash-builtin check (no gnugrep dep): read the file with $(< …) and substring-
   # match, then append only if the import line is absent. The mutating append is
   # wrapped in `$DRY_RUN_CMD bash -c '…'` so a dry-run activation only echoes it
