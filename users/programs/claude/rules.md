@@ -12,6 +12,8 @@ Prefer the Read/Edit tools over Bash `cat`/`sed` for file work. Don't run non-te
 
 When presenting a shell command for the user to copy, never split it across lines with a bare newline. Keep it on one physical line, or if splitting for readability, end each line with a `\` continuation.
 
+Prefer bare, explicit commands over defining a shell variable or alias that wraps a `~` path (e.g. `f=~/foo/bar; $f …`) — each such definition triggers an extra permission prompt for no real benefit. A bare `~` directly in a command argument (`ls ~/foo`) is fine; it's the variable/alias indirection that's the noise.
+
 **GNU coreutils are on PATH ahead of BSD** (installed unprefixed by `cfg`, for cross-platform GNU parity). `stat`, `date`, `readlink`, `du`, `ln` etc. are GNU, not BSD. Use GNU syntax (`stat -c '%s'`, `date -d`, `readlink -f`) — not BSD (`stat -f`, `date -r`). Don't reach for BSD flags just because the platform is darwin. If you genuinely need a BSD original, call it by absolute path: `/usr/bin/stat -f`, `/bin/ln`.
 
 ## Suspect surprising output
