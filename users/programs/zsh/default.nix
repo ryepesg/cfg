@@ -64,8 +64,7 @@
       cat = "bat";
       less = "bat";
       more = "bat";
-      rg = "rg --color=always";
-      jq = "jq -C";
+      rg = "rg --color=auto"; # auto: color on TTY, none when piped/captured (avoids ANSI in $(rg …))
       nix = "noglob nix"; # allow #hashtags in flake refs
       gs = "git status"; # NB: shadows ghostscript's `gs` (use `command gs` for that)
       gst = "git status -s"; # mirror the `st` git alias (status -s); omz muscle memory
