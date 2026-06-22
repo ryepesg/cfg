@@ -15,7 +15,8 @@ If it doesn't pass that test, leave it out. Default to capturing little; when th
 
 ## Prerequisites
 
-- **Logseq** needs the graph root in the `LOGSEQ_GRAPH` environment variable (absolute path to the dir containing `pages/` and `journals/`). If it's unset and you can't locate the graph, report that and skip the Logseq writes rather than guessing a path.
+- **Logseq** graph root: the dir containing `pages/` and `journals/`. The session's environment context lists these as additional working directories with their literal absolute paths — take the root from there (it differs per machine). `$LOGSEQ_GRAPH` is a fallback if they're not listed. If you can't locate the graph either way, report that and skip the Logseq writes rather than guessing a path.
+- **Never pass the graph path (or any space- or variable-bearing path) to Bash.** Embedding `$LOGSEQ_GRAPH`, `$(…)`, or a quoted path with spaces in a shell command forces an expansion the permission system can't pre-match, so every call re-prompts for approval. Use the native file tools instead — **Glob** to find a page, **Grep** to search content, **Read/Write/Edit** to append — they take literal absolute paths, handle spaces, and bypass the shell entirely.
 - **Memory** (step 3) assumes a file-based memory at `~/.claude/memory/` with a `MEMORY.md` index. If the project doesn't use one, skip it and say so.
 
 ## 1. Pending actions
@@ -34,8 +35,8 @@ Call out separately anything that blocks closing right now (e.g. unpushed work t
 Capture durable things learned this session that future-you would otherwise have to rediscover: a decision and why, a non-obvious how/why, a gotcha, a resolved unknown. Not activity ("did X, then Y"), and not anything already recorded in the repo, git history, or project docs.
 
 Write these into the Logseq graph:
-- Graph root: `$LOGSEQ_GRAPH`. Topic pages live at `pages/<title>.md`; Logseq encodes namespace separators in filenames (`/`→`___`, `|`→`%7C`, spaces kept — page `tool/AeroSpace` → `pages/tool___AeroSpace.md`). Inside file content use real slashes in `[[links]]`.
-- Routing: identify the insight's topic, search `pages/` for a matching slug case-insensitively (`find "$LOGSEQ_GRAPH/pages" -iname '*erospace*'`). Append to the most specific page that fits, under a dated bullet. Fall back to today's `journals/` file only if no page fits. Editing the graph while Logseq is open is fine.
+- Topic pages live at `pages/<title>.md`; Logseq encodes namespace separators in filenames (`/`→`___`, `|`→`%7C`, spaces kept — page `tool/AeroSpace` → `pages/tool___AeroSpace.md`). Inside file content use real slashes in `[[links]]`.
+- Routing: identify the insight's topic, then find a matching slug case-insensitively with the **Glob** tool (pattern `*erospace*`) rooted at the `pages/` working directory — not a Bash `find`, which would re-prompt. Append to the most specific page that fits, under a dated bullet, via **Edit**. Fall back to today's `journals/` file only if no page fits. Editing the graph while Logseq is open is fine.
 - Match the surrounding note style — bullets, indentation, the user's voice. No filler, no bold-label headers, sparse emoji, no AI tells.
 
 Tell the user exactly which file(s) you wrote to.
