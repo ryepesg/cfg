@@ -70,6 +70,7 @@
 
     # shell ergonomics
     coreutils
+    gnused # unprefixed `sed`; closes the GNU/BSD gap left by coreutils (BSD `sed -i ''` vs GNU `sed -i`)
     # tree — replaced by the `tree = "eza -T"` shell alias (zsh module)
 
     # files
