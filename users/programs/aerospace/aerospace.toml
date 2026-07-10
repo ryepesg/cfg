@@ -5,6 +5,11 @@
 # agent), so launch-at-login is owned here rather than by Nix.
 start-at-login = true
 
+# config-version 2 unlocks persistent-workspaces (AeroSpace 0.20+).
+config-version = 2
+# Every workspace always exists, even when empty.
+persistent-workspaces = ['1', '2', '3', '4', '5', 'A', 'B', 'E', 'I', 'M', 'N', 'P', 'S', 'T', 'W']
+
 accordion-padding = 30
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
@@ -34,7 +39,7 @@ outer.right = 8
 # 'secondary' = the external. Array = ordered fallback: external when docked,
 # else 'main' (the built-in) when undocked, so nothing is orphaned.
 #   Laptop  (numbers): 1 Primary work  2 Project/2nd context  3 Scratch  (4-5 spare)
-#   External (letters): C Comms  N Notes  A Agenda  I Intelligence  M Media  P Preview  B Browser/research  W Work browser  T Agents (fleet view)
+#   External (letters): E Email  S Slack  N Notes  A Agenda  I Intelligence  M Media  P Preview  B Browser/research  W Work browser  T Agents (fleet view)
 [workspace-to-monitor-force-assignment]
 1 = 'built-in'
 2 = 'built-in'
@@ -43,11 +48,12 @@ outer.right = 8
 5 = 'built-in'
 A = ['secondary', 'main']
 B = ['secondary', 'main']
-C = ['secondary', 'main']
+E = ['secondary', 'main']
 I = ['secondary', 'main']
 M = ['secondary', 'main']
 N = ['secondary', 'main']
 P = ['secondary', 'main']
+S = ['secondary', 'main']
 T = ['secondary', 'main']
 W = ['secondary', 'main']
 
@@ -71,7 +77,7 @@ alt-shift-backtick = 'swap right'
 
 # Layout
 alt-slash = 'layout tiles horizontal vertical'
-alt-comma = 'layout accordion horizontal vertical'
+alt-comma = 'layout v_accordion horizontal vertical'
 alt-shift-f = 'fullscreen'
 
 # Non conflicting old habits
@@ -87,7 +93,8 @@ alt-2 = 'workspace 2'   # project / 2nd context
 alt-3 = 'workspace 3'   # scratch / experiments
 alt-4 = 'workspace 4'   # spare (laptop)
 alt-5 = 'workspace 5'   # spare (laptop)
-alt-c = 'workspace C'   # comms: Slack + email
+alt-e = 'workspace E'   # email: Gmail
+alt-s = 'workspace S'   # Slack
 alt-n = 'workspace N'   # notes: Logseq
 alt-a = 'workspace A'   # agenda: calendar + tasks
 alt-i = 'workspace I'   # intelligence
@@ -103,7 +110,8 @@ alt-shift-2 = 'move-node-to-workspace 2'
 alt-shift-3 = 'move-node-to-workspace 3'
 alt-shift-4 = 'move-node-to-workspace 4'
 alt-shift-5 = 'move-node-to-workspace 5'
-alt-shift-c = 'move-node-to-workspace C'
+alt-shift-e = 'move-node-to-workspace E'
+alt-shift-s = 'move-node-to-workspace S'
 alt-shift-n = 'move-node-to-workspace N'
 alt-shift-a = 'move-node-to-workspace A'
 alt-shift-i = 'move-node-to-workspace I'
@@ -159,15 +167,15 @@ alt-shift-l = ['join-with right', 'mode main']
 
 # --- External (letters) ---
 
-# C Comms: Slack + the Gmail PWA (installed standalone, so it reports the
+# S Slack; E Email: the Gmail PWA (installed standalone, so it reports the
 # app-name 'Gmail', not the browser).
 [[on-window-detected]]
 if.app-name-regex-substring = 'slack'
-run = 'move-node-to-workspace C'
+run = 'move-node-to-workspace S'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'gmail'
-run = 'move-node-to-workspace C'
+run = 'move-node-to-workspace E'
 
 # A Agenda: the Google Calendar PWA.
 [[on-window-detected]]
@@ -206,21 +214,21 @@ run = 'move-node-to-workspace M'
 
 # B Browser / research: Brave. 'chrome' kept as a harmless no-op for cross-machine
 # parity (a rule whose app isn't installed simply never fires).
-# Browser windows stack as an accordion on B (one expanded, the rest as titled
-# slivers) — better for many tabs/windows than tiling them small. The array runs
-# the move first, then sets B's layout, as each browser window is detected.
+# Browser windows stack as a vertical accordion on B (one expanded, the rest as
+# titled slivers) — better for many tabs/windows than tiling them small. The array
+# runs the move first, then sets B's layout, as each browser window is detected.
 [[on-window-detected]]
 if.app-name-regex-substring = 'brave'
-run = ['move-node-to-workspace B', 'layout accordion']
+run = ['move-node-to-workspace B', 'layout v_accordion']
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'edge'
-run = ['move-node-to-workspace B', 'layout accordion']
+run = ['move-node-to-workspace B', 'layout v_accordion']
 
 # W for Work related browser
 [[on-window-detected]]
 if.app-name-regex-substring = 'chrome'
-run = ['move-node-to-workspace W', 'layout accordion']
+run = ['move-node-to-workspace W', 'layout v_accordion']
 
 # T Agents: cloud-agent fleet view — the terminal panes you watch to supervise
 # many cloud agents at once (run status, queues, outputs) rather than do hands-on
