@@ -91,6 +91,7 @@
     sd
 
     # formats
+    poppler-utils # Poppler PDF CLI tools: pdftotext, pdfinfo, pdftoppm, pdfimages
     yq
 
     # compress
