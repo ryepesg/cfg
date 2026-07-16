@@ -5,7 +5,7 @@
 #  are declared per-machine.
 #
 
-{ ... }:
+{ lib, ... }:
 
 {
   homebrew = {
@@ -13,8 +13,14 @@
     onActivation = {
       autoUpdate = true; # Run `brew update` before each activation
       upgrade = true; # Upgrade outdated formulae/casks on each activation
-      cleanup = "zap"; # Uninstall + zap anything not declared in the machine's lists
-      extraFlags = [ "--force" ]; # Force non-interactive bundle (needed for the zap cleanup to proceed)
+      # Forced off (was "zap"): under drs's `sudo --user` activation, brew bundle's
+      # cleanup pass rewrites Homebrew's trust store and wipes ~/.homebrew/trust.json
+      # every rebuild (Homebrew 6.0 made tap-trust mandatory), so a `brew trust` for
+      # AeroSpace's third-party tap never survived. No cleanup = trust granted once
+      # sticks. Chosen over HOMEBREW_NO_REQUIRE_TAP_TRUST=1, which disables the trust
+      # check globally. Trade-off: undeclared casks are no longer auto-removed.
+      cleanup = lib.mkForce "none";
+      extraFlags = [ "--force" ]; # Non-interactive bundle (lets `upgrade` run without prompts)
     };
   };
 
