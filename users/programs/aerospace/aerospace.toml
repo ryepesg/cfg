@@ -206,6 +206,19 @@ run = 'move-node-to-workspace P'
 if.app-name-regex-substring = 'claude'
 run = 'move-node-to-workspace I'
 
+# I Intelligence: the Google Gemini PWA. Install standalone so it reports the
+# app-name 'Google Gemini' rather than the browser — same PWA trick as Claude
+# above; harmless no-op until installed.
+[[on-window-detected]]
+if.app-name-regex-substring = 'gemini'
+run = 'move-node-to-workspace I'
+
+# I Intelligence: the ChatGPT PWA. Install standalone so it reports the app-name
+# 'ChatGPT'; harmless no-op until installed (same trick as the others above).
+[[on-window-detected]]
+if.app-name-regex-substring = 'chatgpt'
+run = 'move-node-to-workspace I'
+
 # M Media: the YouTube PWA (install standalone so it reports the app-name
 # 'YouTube', same trick as the other PWAs above). 
 [[on-window-detected]]
