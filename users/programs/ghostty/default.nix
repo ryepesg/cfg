@@ -48,6 +48,13 @@
       # Left Option acts as Alt so Opt+←/→ and Opt+Backspace do word nav/delete;
       # right Option stays as-is for composing special characters.
       macos-option-as-alt = "left";
+
+      # Copy selected text straight to the clipboard. `clipboard` (not the default
+      # `true`) is the load-bearing value on macOS: macOS has no PRIMARY/selection
+      # clipboard, so `true` fills only Ghostty's internal selection buffer and
+      # Cmd+V sees nothing — `clipboard` targets the system pasteboard so a plain
+      # drag-select lands in Cmd+V. Matches the Linux select-to-copy habit.
+      copy-on-select = "clipboard";
     };
   };
 }
