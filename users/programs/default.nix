@@ -67,7 +67,6 @@
 
     # development
     git
-    antigravity-cli
     python3Packages.ipython
 
     # shell ergonomics
