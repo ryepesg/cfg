@@ -67,7 +67,7 @@
 
     # development
     git
-    gemini-cli
+    antigravity-cli
     python3Packages.ipython
 
     # shell ergonomics
