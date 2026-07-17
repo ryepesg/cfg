@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lint Portable Skill"
+  short_description: "Check Agent Skills portability across harnesses"
+  default_prompt: "Use $lint-portable-skill to validate this skill against the portable Agent Skills contract and report harness-specific risks."
