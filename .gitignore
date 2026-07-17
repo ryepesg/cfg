@@ -20,3 +20,4 @@ id_ed25519*
 *-private.*
 *.secret
 secrets/
+__pycache__/

@@ -20,7 +20,10 @@
       # sticks. Chosen over HOMEBREW_NO_REQUIRE_TAP_TRUST=1, which disables the trust
       # check globally. Trade-off: undeclared casks are no longer auto-removed.
       cleanup = lib.mkForce "none";
-      extraFlags = [ "--force" ]; # Non-interactive bundle (lets `upgrade` run without prompts)
+      # No extraFlags: bundle install/upgrade are non-interactive already; --force
+      # only existed to make the (now-disabled) cleanup zap execute for real, and on
+      # install it just adds --overwrite — silent file clobbering next to nix-managed
+      # binaries.
     };
   };
 

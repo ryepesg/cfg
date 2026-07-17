@@ -25,6 +25,7 @@
     ./editors/nvim # neovim (withRuby / withPython3 off)
     ./ghostty # Ghostty terminal settings (programs.ghostty, package = null)
     ./claude # shared Claude Code rules: ~/.claude/cfg-rules.md + @import wiring
+    ./mdplain # `mdplain` command: markdown to plain linear prose
   ];
 
   # The shared .vimrc, applied to whatever vim is present. macOS ships a `vim`
@@ -93,6 +94,7 @@
     # formats
     poppler-utils # Poppler PDF CLI tools: pdftotext, pdfinfo, pdftoppm, pdfimages
     yq
+    pandoc # universal document converter (markdown/html/docx/pdf/…)
 
     # compress
     #unzip
