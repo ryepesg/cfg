@@ -67,6 +67,7 @@
 
     # development
     git
+    gemini-cli
     python3Packages.ipython
 
     # shell ergonomics
