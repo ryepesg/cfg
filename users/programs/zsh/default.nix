@@ -146,6 +146,21 @@
       if [[ -z ''${CLAUDECODE-} && -z ''${CODEX_THREAD_ID-} ]]; then
         setopt AUTO_CD
 
+        # Keep a quiet, duplicate-free directory stack. `d` lists it, 1–9 jump
+        # to entries, and `-` returns to the previous directory.
+        setopt AUTO_PUSHD PUSHD_IGNORE_DUPS PUSHD_SILENT
+        DIRSTACKSIZE=19
+        alias d='dirs -v'
+        for n in {1..9}; do
+          alias "$n"="cd +$n"
+        done
+        alias -='cd -'
+
+        # Familiar upward-navigation shortcuts.
+        alias ..='cd ..'
+        alias ...='cd ../..'
+        alias ....='cd ../../..'
+
         mkcd() {
           if (( $# != 1 )); then
             print -u2 'usage: mkcd DIRECTORY'
@@ -153,6 +168,18 @@
           fi
           command mkdir -p -- "$1" && builtin cd -- "$1"
         }
+        take() { mkcd "$@"; }
+
+        # `unar` handles common archive formats through one safe, explicit
+        # command; retain `x` as the short interactive spelling.
+        extract() {
+          if (( $# != 1 )) || [[ ! -f $1 ]]; then
+            print -u2 'usage: extract ARCHIVE'
+            return 2
+          fi
+          command unar -o . -- "$1"
+        }
+        alias x=extract
 
         sudo-command-line() {
           if [[ -z $BUFFER ]]; then
@@ -226,7 +253,7 @@
   # fzf/zoxide/direnv/starship install themselves via their programs.* options;
   # dircolors (coreutils) is `command -v`-guarded. default.nix re-uses these via
   # its `./zsh` import, so it no longer lists them itself.
-  home.packages = with pkgs; [ eza bat ripgrep jq ];
+  home.packages = with pkgs; [ eza bat ripgrep jq unar ];
 
   programs.command-not-found.enable = false;
 

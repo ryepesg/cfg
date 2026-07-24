@@ -24,7 +24,6 @@
     ./git # programs.git aliases/tools (identity-free; name/email set per-machine)
     ./editors/nvim # neovim (withRuby / withPython3 off)
     ./ghostty # Ghostty terminal settings (programs.ghostty, package = null)
-    ./claude # shared Claude Code rules: ~/.claude/cfg-rules.md + @import wiring
     ./mdplain # `mdplain` command: markdown to plain linear prose
   ];
 
