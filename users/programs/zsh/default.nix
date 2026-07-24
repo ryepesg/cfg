@@ -121,19 +121,51 @@
       # manual `bindkey '^R' history-incremental-search-backward` used to live
       # here and clobbered it — removed so fzf owns reverse history search.
 
-      # Don't record typos / unknown commands in history. Runs before execution,
-      # so it keeps a line only if its command word resolves (alias / function /
-      # builtin / binary). Skips leading VAR=value assignments. Only the first
-      # command word is checked, so e.g. `sudo <typo>` can still be recorded.
+      # Keep successful interactive commands only. `zshaddhistory` runs before
+      # execution, so it keeps each entry in the in-memory list but blocks zsh's
+      # eager write; the precmd hook appends it only after a zero exit status.
+      # This also drops typos and unknown commands, which exit non-zero.
       zshaddhistory() {
-        emulate -L zsh
-        local w
-        for w in ''${(z)1}; do
-          [[ $w == [A-Za-z_][A-Za-z0-9_]*=* ]] && continue
-          whence -- $w >/dev/null 2>&1 && return 0 || return 1
-        done
-        return 0
+        typeset -g __history_candidate="''${1%$'\n'}"
+        return 2
       }
+
+      __record_successful_history() {
+        local exit_status=$?
+        if (( exit_status == 0 )) && [[ -n ''${__history_candidate-} ]]; then
+          print -r -- "$__history_candidate" >> "$HISTFILE"
+        fi
+        unset __history_candidate
+      }
+      autoload -Uz add-zsh-hook
+      add-zsh-hook precmd __record_successful_history
+
+      # Keep human-only ergonomics out of agent sessions: agent command lines
+      # should remain explicit, while interactive users get directory navigation
+      # and the conventional Escape Escape sudo toggle.
+      if [[ -z ''${CLAUDECODE-} && -z ''${CODEX_THREAD_ID-} ]]; then
+        setopt AUTO_CD
+
+        mkcd() {
+          if (( $# != 1 )); then
+            print -u2 'usage: mkcd DIRECTORY'
+            return 2
+          fi
+          command mkdir -p -- "$1" && builtin cd -- "$1"
+        }
+
+        sudo-command-line() {
+          [[ -n $BUFFER ]] || return
+          if [[ $BUFFER == 'sudo '* ]]; then
+            BUFFER="''${BUFFER#sudo }"
+          else
+            BUFFER="sudo $BUFFER"
+          fi
+          zle end-of-line
+        }
+        zle -N sudo-command-line
+        bindkey '\e\e' sudo-command-line
+      fi
 
       # `grep` nudge: still runs the real grep (scripts/pipes are unaffected — this
       # interactive function isn't seen by separate script processes), but prints a
