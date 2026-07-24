@@ -155,8 +155,9 @@
         }
 
         sudo-command-line() {
-          [[ -n $BUFFER ]] || return
-          if [[ $BUFFER == 'sudo '* ]]; then
+          if [[ -z $BUFFER ]]; then
+            BUFFER="sudo $(fc -ln -1)"
+          elif [[ $BUFFER == 'sudo '* ]]; then
             BUFFER="''${BUFFER#sudo }"
           else
             BUFFER="sudo $BUFFER"
@@ -164,6 +165,7 @@
           zle end-of-line
         }
         zle -N sudo-command-line
+        # A running CLI owns terminal input, so this applies only at the zsh prompt.
         bindkey '\e\e' sudo-command-line
       fi
 
