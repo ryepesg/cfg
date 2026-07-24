@@ -154,7 +154,7 @@
         for n in {1..9}; do
           alias "$n"="cd +$n"
         done
-        alias -='cd -'
+        alias -- -='cd -'
 
         # Familiar upward-navigation shortcuts.
         alias ..='cd ..'

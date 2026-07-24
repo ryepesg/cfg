@@ -81,9 +81,9 @@
               home.file.".config/aerospace/aerospace.toml".source =
                 config.lib.file.mkOutOfStoreSymlink
                   "${config.home.homeDirectory}/cfg/users/programs/aerospace/aerospace.toml";
-              # Claude rules + skills are wired by cfg's homeManagerModules.default
-              # (imported above) — every skill folder in cfg/users/programs/claude/
-              # skills is symlinked automatically, so nothing per-skill is needed here.
+              # Agent instructions and skills are repository-scoped. Copy the
+              # templates in cfg/agents into the project that owns the work;
+              # do not wire global harness-home symlinks here.
             };
           }
         ];
